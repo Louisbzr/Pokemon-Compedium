@@ -28,6 +28,33 @@
   color: #61dafb;
 }
 
+.pokemon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.filter-bar, .sort-bar {
+  margin: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.filter-bar label, .sort-bar label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.filter-bar select, .sort-bar select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
