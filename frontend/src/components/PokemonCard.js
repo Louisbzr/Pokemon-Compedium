@@ -42,17 +42,16 @@ function PokemonCard(props) {
         ))}
       </div>
       <div className="pokemon-stats">
-      <div className="total-stats">
-          <span className="stat-name">Total</span>
-          <span className="stat-value-total">{props.pokemon.totalStats}</span>
-        </div>
-        
         {props.pokemon.stats.map((statInfo) => (
           <div key={statInfo.stat.name} className="stat-item">
             <span className="stat-name">{statInfo.stat.name}:</span>
             <span className="stat-value">{statInfo.base_stat}</span>
           </div>
         ))}
+        <div className="total-stats">
+          <span className="stat-name">Total</span>
+          <span className="stat-value-total">{props.pokemon.totalStats}</span>
+        </div>
       </div>
     </div>
     

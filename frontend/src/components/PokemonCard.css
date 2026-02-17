@@ -118,3 +118,37 @@
   background-clip: text;
 }
 
+.pokemon-stats {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent */
+  border-radius: 15px;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.total-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 10px;
+  background: linear-gradient(135deg, rgb(102, 126, 234) 0%, rgb(118, 75, 162) 100%);
+  border-radius: 10px;
+  margin-top: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.total-stats .stat-name {
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.stat-value-total {
+  color: white;
+  font-weight: 900;
+  font-size: 1.4rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
