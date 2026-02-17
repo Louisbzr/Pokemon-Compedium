@@ -1,11 +1,19 @@
+import './GenerationNav.css'
+
+
 function GenerationNav(props) {
-  const generations = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  
   return (
     <div className="generation-nav">
-      <h2>Select one generation</h2>
+      <h2>Sélectionner une génération</h2>
       <div className="generation-buttons">
-        {generations.map((gen) => (
+        <button
+          className={props.selectedGen === 'all' ? 'active' : ''}
+          onClick={() => props.onSelectGeneration('all')}
+        >
+          All
+        </button>
+        
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((gen) => (
           <button
             key={gen}
             className={props.selectedGen === gen ? 'active' : ''}

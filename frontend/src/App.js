@@ -16,7 +16,8 @@ const GENERATIONS = {
   6: { name: 'Generation VI', start: 650, end: 721 },
   7: { name: 'Generation VII', start: 722, end: 809 },
   8: { name: 'Generation VIII', start: 810, end: 905 },
-  9: { name: 'Generation IX', start: 906, end: 1025 }
+  9: { name: 'Generation IX', start: 906, end: 1025 },
+  all: { name: 'Tous les Pokémon', start: 1, end: 1025 }
 }
 
 const getStatValue = (pokemon, statName) => {
@@ -27,46 +28,64 @@ const getStatValue = (pokemon, statName) => {
 function App() {
   const [pokemons, setPokemons] = useState([])
   const [loading, setLoading] = useState(true)
-  const [selectedGeneration, setSelectedGeneration] = useState(1)
+  const [selectedGeneration, setSelectedGeneration] = useState('all')
   const [filters, setFilters] = useState({
     type: 'all',
     color: 'all',
     generation: 'all'
   })
   const [sortBy, setSortBy] = useState('id')
-    
-  console.log('Composant App chargé')
-  console.log('pokemons:', pokemons)
-  console.log('loading:', loading)
-
+  const [loadingProgress, setLoadingProgress] = useState(0)
 
   const fetchPokemonByGeneration = async (genNumber) => {
     try {
       setLoading(true)
+      setLoadingProgress(0)
+      
       const gen = GENERATIONS[genNumber]
       const count = gen.end - gen.start + 1
       const offset = gen.start - 1
       
-      const response = await fetch(`http://localhost:5000/pokemon?limit=${count}&offset=${offset}`)
-      const data = await response.json()
-      
-      const pokemonsWithTotal = data.map(pokemon => {
-        const totalStats = pokemon.stats.reduce((sum, stat) => sum + stat.base_stat, 0)
-        return {
-          ...pokemon,
-          totalStats: totalStats
+      if (genNumber === 'all') {
+        const batchSize = 100
+        let allPokemons = []
+        
+        for (let i = 0; i < count; i += batchSize) {
+          const currentBatchSize = Math.min(batchSize, count - i)
+          const response = await fetch(`http://localhost:5000/pokemon?limit=${currentBatchSize}&offset=${offset + i}`)
+          const data = await response.json()
+          
+          const pokemonsWithTotal = data.map(pokemon => {
+            const totalStats = pokemon.stats.reduce((sum, stat) => sum + stat.base_stat, 0)
+            return { ...pokemon, totalStats }
+          })
+          
+          allPokemons = [...allPokemons, ...pokemonsWithTotal]
+          setLoadingProgress(Math.round((allPokemons.length / count) * 100))
         }
-      })
+        
+        setPokemons(allPokemons)
+      } else {
+        const response = await fetch(`http://localhost:5000/pokemon?limit=${count}&offset=${offset}`)
+        const data = await response.json()
+        
+        const pokemonsWithTotal = data.map(pokemon => {
+          const totalStats = pokemon.stats.reduce((sum, stat) => sum + stat.base_stat, 0)
+          return { ...pokemon, totalStats }
+        })
+        
+        setPokemons(pokemonsWithTotal)
+      }
       
-      console.log('Premier Pokémon avec total:', pokemonsWithTotal[0])
-      
-      setPokemons(pokemonsWithTotal)
       setLoading(false)
+      setLoadingProgress(0)
     } catch (error) {
       console.error('Erreur:', error)
       setLoading(false)
+      setLoadingProgress(0)
     }
   }
+
 
 
   const handleFilterChange = (filterType, value) => {
@@ -181,7 +200,32 @@ function App() {
             marginTop: '20px',
             fontSize: '1.2rem',
             fontWeight: '600'
-          }}>Loading of Pokémon... ⏳</p>
+          }}>
+            Chargement des Pokémon... ⏳
+          </p>
+          {loadingProgress > 0 && (
+            <div style={{
+              marginTop: '15px',
+              width: '300px',
+              height: '20px',
+              background: 'rgba(255,255,255,0.2)',
+              borderRadius: '10px',
+              overflow: 'hidden'
+            }}>
+              <div style={{
+                width: `${loadingProgress}%`,
+                height: '100%',
+                background: 'linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%)',
+                transition: 'width 0.3s ease',
+                borderRadius: '10px'
+              }}></div>
+            </div>
+          )}
+          {loadingProgress > 0 && (
+            <p style={{ marginTop: '10px', fontSize: '1rem' }}>
+              {loadingProgress}% chargés
+            </p>
+          )}
         </div>
       ) : (
         <>
