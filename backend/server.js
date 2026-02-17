@@ -18,7 +18,10 @@ app.get('/liste', async (req, res) => {
 
 app.get('/pokemon', async function(req, res){
   try{
-    const pokemonWithDetails = await pokemonService.getAllPokemonWithDetails()
+    const limit = parseInt(req.query.limit) || 20
+    const offset = parseInt(req.query.offset) || 0
+    
+    const pokemonWithDetails = await pokemonService.getAllPokemonWithDetails(limit, offset)
     res.json(pokemonWithDetails)
   } catch (error){
      res.status(500).json({ error: 'Erreur' })

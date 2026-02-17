@@ -1,3 +1,5 @@
+import './Filter.css';
+
 function FilterBar(props) {
   const types = [
     'all', 'normal', 'fire', 'water', 'grass', 'electric', 
@@ -11,11 +13,6 @@ function FilterBar(props) {
     'pink', 'purple', 'red', 'white', 'yellow'
   ]
   
-  const generations = [
-    'all', 'generation-i', 'generation-ii', 'generation-iii', 
-    'generation-iv', 'generation-v', 'generation-vi', 
-    'generation-vii', 'generation-viii', 'generation-ix'
-  ]
 
   return (
     <div className="filter-bar">
@@ -29,22 +26,14 @@ function FilterBar(props) {
       </div>
       
       <div>
-        <label>Couleur : </label>
+        <label>Color : </label>
         <select onChange={(e) => props.onFilterChange('color', e.target.value)}>
           {colors.map((color) => (
             <option key={color} value={color}>{color}</option>
           ))}
         </select>
       </div>
-      
-      <div>
-        <label>Génération : </label>
-        <select onChange={(e) => props.onFilterChange('generation', e.target.value)}>
-          {generations.map((gen) => (
-            <option key={gen} value={gen}>{gen}</option>
-          ))}
-        </select>
-      </div>
+
     </div>
   )
 }
