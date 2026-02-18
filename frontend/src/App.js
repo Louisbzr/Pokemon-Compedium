@@ -6,7 +6,7 @@ import SortBar from './components/SortBar';
 import GenerationNav from './components/GenerationNav'
 import SearchBar from './components/SearchBar'
 import PokemonDetailModal from './components/PokemonDetailModal';
-
+import PokemonGame from './components/PokemonGameGuessing'
 
 const GENERATIONS = {
   1: { name: 'Generation I', start: 1, end: 151 },
@@ -39,6 +39,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedLanguage, setSelectedLanguage] = useState('en')
   const [selectedPokemon, setSelectedPokemon] = useState(null)
+  const [showGame, setShowGame] = useState(false)
 
   const getPokemonName = (pokemon, language) => {
     if (!pokemon.names || !Array.isArray(pokemon.names)) {
@@ -202,7 +203,7 @@ function App() {
   return (
     <div className="App" style={{ background: currentBackground }}>
       <h1>Pokemon Compedium</h1>
-      
+
       <div className="language-selector">
         <label>Language: </label>
         <select 
@@ -220,93 +221,111 @@ function App() {
         </select>
       </div>
 
-      <GenerationNav 
-        selectedGen={selectedGeneration}
-        onSelectGeneration={setSelectedGeneration}
-      />
-      <SearchBar 
-        searchTerm={searchTerm}
-        onSearchChange={handleSearchChange}
-      />
+      <div style={{ textAlign: 'center', margin: '20px 0' }}>
+        <button 
+          className="game-launch-button"
+          onClick={() => setShowGame(!showGame)}
+        >
+          {showGame ? '📋 Voir le Pokédex' : '🎮 Jouer au jeu'}
+        </button>
+      </div>
 
-      {loading ? (
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '50vh',
-          color: 'white'
-        }}>
-          <div style={{
-            width: '60px',
-            height: '60px',
-            border: '5px solid rgba(255, 255, 255, 0.3)',
-            borderTop: '5px solid white',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite'
-          }}></div>
-          <p style={{
-            marginTop: '20px',
-            fontSize: '1.2rem',
-            fontWeight: '600'
-          }}>
-            Loading the Pokémon... ⏳
-          </p>
-          {loadingProgress > 0 && (
-            <div style={{
-              marginTop: '15px',
-              width: '300px',
-              height: '20px',
-              background: 'rgba(255,255,255,0.2)',
-              borderRadius: '10px',
-              overflow: 'hidden'
-            }}>
-              <div style={{
-                width: `${loadingProgress}%`,
-                height: '100%',
-                background: 'linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%)',
-                transition: 'width 0.3s ease',
-                borderRadius: '10px'
-              }}></div>
-            </div>
-          )}
-          {loadingProgress > 0 && (
-            <p style={{ marginTop: '10px', fontSize: '1rem' }}>
-              {loadingProgress}% chargés
-            </p>
-          )}
-        </div>
+      {showGame ? (
+        <PokemonGame 
+          language={selectedLanguage}
+          getPokemonName={getPokemonName}
+          allPokemons={pokemons}
+        />
       ) : (
         <>
-          <p>Number of Pokemon : {sortedPokemons.length}</p>
-          <FilterBar onFilterChange={handleFilterChange} />
-          <SortBar onSortChange={handleSortChange} />
-          <div className="pokemon-grid">
-            {sortedPokemons.map((pokemon) => (
-              <PokemonCard 
-                key={pokemon.id} 
-                pokemon={pokemon}
-                language={selectedLanguage}
-                getPokemonName={getPokemonName}
-                onClick={setSelectedPokemon}
-              />
-            ))}
-          </div>
-          {selectedPokemon && (
-            <PokemonDetailModal
-              pokemon={selectedPokemon}
-              language={selectedLanguage}
-              getPokemonName={getPokemonName}
-              onClose={() => setSelectedPokemon(null)}
-            />
+          
+          <GenerationNav 
+            selectedGen={selectedGeneration}
+            onSelectGeneration={setSelectedGeneration}
+          />
+          <SearchBar 
+            searchTerm={searchTerm}
+            onSearchChange={handleSearchChange}
+          />
+
+          {loading ? (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minHeight: '50vh',
+              color: 'white'
+            }}>
+              <div style={{
+                width: '60px',
+                height: '60px',
+                border: '5px solid rgba(255, 255, 255, 0.3)',
+                borderTop: '5px solid white',
+                borderRadius: '50%',
+                animation: 'spin 1s linear infinite'
+              }}></div>
+              <p style={{
+                marginTop: '20px',
+                fontSize: '1.2rem',
+                fontWeight: '600'
+              }}>
+                Loading the Pokémon... ⏳
+              </p>
+              {loadingProgress > 0 && (
+                <div style={{
+                  marginTop: '15px',
+                  width: '300px',
+                  height: '20px',
+                  background: 'rgba(255,255,255,0.2)',
+                  borderRadius: '10px',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    width: `${loadingProgress}%`,
+                    height: '100%',
+                    background: 'linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%)',
+                    transition: 'width 0.3s ease',
+                    borderRadius: '10px'
+                  }}></div>
+                </div>
+              )}
+              {loadingProgress > 0 && (
+                <p style={{ marginTop: '10px', fontSize: '1rem' }}>
+                  {loadingProgress}% chargés
+                </p>
+              )}
+            </div>
+          ) : (
+            <>
+              <p>Number of Pokemon : {sortedPokemons.length}</p>
+              <FilterBar onFilterChange={handleFilterChange} />
+              <SortBar onSortChange={handleSortChange} />
+              <div className="pokemon-grid">
+                {sortedPokemons.map((pokemon) => (
+                  <PokemonCard 
+                    key={pokemon.id} 
+                    pokemon={pokemon}
+                    language={selectedLanguage}
+                    getPokemonName={getPokemonName}
+                    onClick={setSelectedPokemon}
+                  />
+                ))}
+              </div>
+              {selectedPokemon && (
+                <PokemonDetailModal
+                  pokemon={selectedPokemon}
+                  language={selectedLanguage}
+                  getPokemonName={getPokemonName}
+                  onClose={() => setSelectedPokemon(null)}
+                />
+              )}
+            </>
           )}
         </>
       )}
     </div>
   );
-
-
 }
 
 export default App;

@@ -1,0 +1,461 @@
+.game-container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-menu {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px;
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.game-menu h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.game-subtitle {
+  font-size: 1.3rem;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.game-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.game-mode-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 35px 25px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: white;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.game-mode-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
+}
+
+.mode-icon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+}
+
+.game-mode-card h3 {
+  font-size: 1.5rem;
+  margin: 15px 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.game-mode-card p {
+  opacity: 0.9;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.total-score {
+  margin-top: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #F8D030 0%, #F7931E 100%);
+  border-radius: 15px;
+  color: white;
+}
+
+.total-score h2 {
+  margin: 0;
+  font-size: 2rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.back-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.game-stats {
+  display: flex;
+  gap: 30px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #667eea;
+}
+
+.game-content {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px;
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.game-display {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.game-display h2 {
+  font-size: 2rem;
+  color: #667eea;
+  margin-bottom: 30px;
+}
+
+.pokemon-display {
+  background: rgba(102, 126, 234, 0.1);
+  padding: 40px;
+  border-radius: 20px;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pokemon-image {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  transition: filter 0.5s ease;
+}
+
+.description-display {
+  background: rgba(102, 126, 234, 0.1);
+  padding: 30px;
+  border-radius: 20px;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden-description {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+  font-style: italic;
+}
+
+.colors-display {
+  background: rgba(102, 126, 234, 0.1);
+  padding: 40px;
+  border-radius: 20px;
+  min-height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.type-hints {
+  width: 100%;
+}
+
+.hint-text {
+  font-size: 1.3rem;
+  color: #666;
+  font-style: italic;
+}
+
+.revealed-types,
+.all-types {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.type-badge-large {
+  padding: 20px 40px;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  animation: popIn 0.5s ease-out;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.revealed-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin: 20px auto;
+  display: block;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.answer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.guess-input {
+  width: 100%;
+  padding: 20px;
+  font-size: 1.2rem;
+  border: 3px solid #667eea;
+  border-radius: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.guess-input:focus {
+  border-color: #764ba2;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+  transform: scale(1.02);
+}
+
+.game-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.hint-button,
+.submit-button,
+.next-button {
+  padding: 15px 35px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hint-button {
+  background: linear-gradient(135deg, #F8D030 0%, #F7931E 100%);
+  color: white;
+}
+
+.hint-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  flex: 1;
+}
+
+.next-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  width: 100%;
+  padding: 20px;
+  font-size: 1.3rem;
+}
+
+.hint-button:not(:disabled):hover,
+.submit-button:hover,
+.next-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.result-section {
+  text-align: center;
+  padding: 40px;
+  border-radius: 20px;
+  animation: slideUp 0.5s ease-out;
+}
+
+.result-section.won {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+}
+
+.result-section.lost {
+  background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
+  color: white;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-title {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.result-text {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+
+.result-text strong {
+  font-size: 1.8rem;
+  text-transform: capitalize;
+}
+
+.points-earned {
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 20px 0;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.game-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: white;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top: 6px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .game-menu {
+    padding: 30px 20px;
+  }
+
+  .game-menu h1 {
+    font-size: 2rem;
+  }
+
+  .game-modes {
+    grid-template-columns: 1fr;
+  }
+
+  .game-content {
+    padding: 30px 20px;
+  }
+
+  .game-header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .game-stats {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .game-buttons {
+    flex-direction: column;
+  }
+
+  .pokemon-image {
+    width: 180px;
+    height: 180px;
+  }
+}
