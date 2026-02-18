@@ -4,7 +4,8 @@ import PokemonCard from './components/PokemonCard';
 import FilterBar from './components/FilterBar';
 import SortBar from './components/SortBar';
 import GenerationNav from './components/GenerationNav'
-
+import SearchBar from './components/SearchBar'
+import PokemonDetailModal from './components/PokemonDetailModal';
 
 
 const GENERATIONS = {
@@ -31,11 +32,24 @@ function App() {
   const [selectedGeneration, setSelectedGeneration] = useState('all')
   const [filters, setFilters] = useState({
     type: 'all',
-    color: 'all',
-    generation: 'all'
+    color: 'all'
   })
   const [sortBy, setSortBy] = useState('id')
   const [loadingProgress, setLoadingProgress] = useState(0)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedLanguage, setSelectedLanguage] = useState('en')
+  const [selectedPokemon, setSelectedPokemon] = useState(null)
+
+  const getPokemonName = (pokemon, language) => {
+    if (!pokemon.names || !Array.isArray(pokemon.names)) {
+      return pokemon.name
+    }
+    
+    const nameEntry = pokemon.names.find(n => n.language.name === language)
+    return nameEntry ? nameEntry.name : pokemon.name
+  }
+
+
 
   const fetchPokemonByGeneration = async (genNumber) => {
     try {
@@ -61,10 +75,12 @@ function App() {
           })
           
           allPokemons = [...allPokemons, ...pokemonsWithTotal]
+          
           setLoadingProgress(Math.round((allPokemons.length / count) * 100))
         }
         
         setPokemons(allPokemons)
+        
       } else {
         const response = await fetch(`http://localhost:5000/pokemon?limit=${count}&offset=${offset}`)
         const data = await response.json()
@@ -86,22 +102,28 @@ function App() {
     }
   }
 
-
-
-  const handleFilterChange = (filterType, value) => {
-    setFilters({
-      ...filters,
-      [filterType]: value
-    })
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters)
   }
 
   const handleSortChange = (sortOption) => {
     setSortBy(sortOption)
   }
+  
+  const handleSearchChange = (term) => {
+    setSearchTerm(term)
+  }
 
   useEffect(() => {
     fetchPokemonByGeneration(selectedGeneration)
   }, [selectedGeneration]) 
+
+  useEffect(() => {
+    if (pokemons.length > 0) {
+      console.log('Premier pokemon:', pokemons[0])
+      console.log('A des noms?', pokemons[0].names)
+    }
+  }, [pokemons])
 
   const filteredPokemons = Array.isArray(pokemons) ? pokemons.filter((pokemon) => {
     const typeMatch = filters.type === 'all' || 
@@ -110,13 +132,20 @@ function App() {
     const colorMatch = filters.color === 'all' || 
       pokemon.color === filters.color
     
-    const generationMatch = filters.generation === 'all' || 
-      pokemon.generation === filters.generation
-    
-    return typeMatch && colorMatch && generationMatch
+    return typeMatch && colorMatch
   }) : []
 
-  const sortedPokemons = [...filteredPokemons].sort((a, b) => {
+  const searchedPokemons = searchTerm.trim() === '' 
+    ? filteredPokemons 
+    : filteredPokemons.filter((pokemon) => {
+        const localizedName = getPokemonName(pokemon, selectedLanguage)
+        const englishName = pokemon.name
+        
+        return localizedName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+               englishName.toLowerCase().includes(searchTerm.toLowerCase())
+      })
+
+  const sortedPokemons = [...searchedPokemons].sort((a, b) => {
     if (sortBy === 'id') {
       return a.id - b.id
     }
@@ -124,17 +153,17 @@ function App() {
     if (sortBy === 'name') return a.name.localeCompare(b.name)
     if (sortBy === 'name-desc') return b.name.localeCompare(a.name)
     
-    if (sortBy === 'stats') return a.totalStats - b.totalStats
-    if (sortBy === 'stats-desc') return b.totalStats - a.totalStats
+    if (sortBy === 'stats') return b.totalStats - a.totalStats
+    if (sortBy === 'stats-desc') return a.totalStats - b.totalStats
     
     const statNames = ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed']
     
     for (const statName of statNames) {
       if (sortBy === statName) {
-        return getStatValue(a, statName) - getStatValue(b, statName)
+        return getStatValue(b, statName) - getStatValue(a, statName)
       }
       if (sortBy === `${statName}-desc`) {
-        return getStatValue(b, statName) - getStatValue(a, statName)
+        return getStatValue(a, statName) - getStatValue(b, statName)
       }
     }
     
@@ -174,11 +203,32 @@ function App() {
     <div className="App" style={{ background: currentBackground }}>
       <h1>Pokemon Compedium</h1>
       
+      <div className="language-selector">
+        <label>Language: </label>
+        <select 
+          value={selectedLanguage} 
+          onChange={(e) => setSelectedLanguage(e.target.value)}
+        >
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="es">Español</option>
+          <option value="it">Italiano</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="zh-Hans">简体中文</option>
+        </select>
+      </div>
+
       <GenerationNav 
         selectedGen={selectedGeneration}
         onSelectGeneration={setSelectedGeneration}
       />
-      
+      <SearchBar 
+        searchTerm={searchTerm}
+        onSearchChange={handleSearchChange}
+      />
+
       {loading ? (
         <div style={{
           display: 'flex',
@@ -201,7 +251,7 @@ function App() {
             fontSize: '1.2rem',
             fontWeight: '600'
           }}>
-            Chargement des Pokémon... ⏳
+            Loading the Pokémon... ⏳
           </p>
           {loadingProgress > 0 && (
             <div style={{
@@ -234,9 +284,23 @@ function App() {
           <SortBar onSortChange={handleSortChange} />
           <div className="pokemon-grid">
             {sortedPokemons.map((pokemon) => (
-              <PokemonCard key={pokemon.id} pokemon={pokemon} />
+              <PokemonCard 
+                key={pokemon.id} 
+                pokemon={pokemon}
+                language={selectedLanguage}
+                getPokemonName={getPokemonName}
+                onClick={setSelectedPokemon}
+              />
             ))}
           </div>
+          {selectedPokemon && (
+            <PokemonDetailModal
+              pokemon={selectedPokemon}
+              language={selectedLanguage}
+              getPokemonName={getPokemonName}
+              onClose={() => setSelectedPokemon(null)}
+            />
+          )}
         </>
       )}
     </div>

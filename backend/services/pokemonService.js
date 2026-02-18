@@ -14,9 +14,14 @@ async function getOnePokemon(name) {
         stats: data.stats,
         totalStats: totalStats,
         color: species.color,
-        generation: species.generation
+        generation: species.generation,
+        names: species.names,
+        height: data.height,  
+        weight: data.weight
     }
     
+     console.log('Pokemon avec noms:', pokemon.name, pokemon.names)
+
     return pokemon
 }
 
@@ -28,14 +33,18 @@ async function getPokemonSpecies(id) {
         const response = await fetch(url)
         const data = await response.json()
         
+        console.log('Species names pour pokemon', id, ':', data.names)
+
         return {
             color: data.color.name,
-            generation: data.generation.name
+            generation: data.generation.name,
+            names: data.names
         }
     } catch (error) {
         return {
             color: 'unknown',
-            generation: 'unknown'
+            generation: 'unknown',
+            names: []
         }
     }
 }

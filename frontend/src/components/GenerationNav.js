@@ -4,7 +4,7 @@ import './GenerationNav.css'
 function GenerationNav(props) {
   return (
     <div className="generation-nav">
-      <h2>Sélectionner une génération</h2>
+      <h2>Select one generation</h2>
       <div className="generation-buttons">
         <button
           className={props.selectedGen === 'all' ? 'active' : ''}
