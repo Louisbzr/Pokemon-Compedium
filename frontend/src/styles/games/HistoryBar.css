@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+/* ═══ BARRE HISTORIQUE ═══ */
+.history-bar {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  width: 100%;
+}
+
+.history-bar h3 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  color: #ffcc00;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ═══ LISTE SCROLL HORIZONTALE ═══ */
+.history-list {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: flex-start;
+  overflow-x: auto;
+  padding: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 204, 0, 0.5) transparent;
+}
+
+.history-list::-webkit-scrollbar {
+  height: 8px;
+}
+.history-list::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+}
+.history-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 204, 0, 0.6);
+  border-radius: 10px;
+}
+
+/* ═══ ITEM HISTORIQUE ═══ */
+.history-item {
+  flex: 0 0 85px;
+  height: 85px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+
+.history-item.won {
+  background: rgba(76, 175, 80, 0.2);
+  border: 3px solid rgba(76, 175, 80, 0.6);
+}
+.history-item.lost {
+  background: rgba(255, 82, 82, 0.2);
+  border: 3px solid rgba(255, 82, 82, 0.6);
+}
+
+.history-item img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+/* ═══ MARQUEUR ✓/✗ ═══ */
+.history-status {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 900;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  border: 3px solid rgba(255,255,255,0.9);
+  z-index: 2;
+}
+
+.history-item.won .history-status { background: #4CAF50; }
+.history-item.lost .history-status { background: #FF5252; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .history-bar { padding: 1.5rem; margin-top: 2rem; }
+  .history-item { flex: 0 0 70px; height: 70px; }
+  .history-list { gap: 1rem; padding: 0.8rem; }
+}

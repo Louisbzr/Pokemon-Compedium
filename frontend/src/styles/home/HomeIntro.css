@@ -1,0 +1,126 @@
+/* ==============================
+   INTRO SCREEN
+   ============================== */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.6s ease;
+}
+.intro-exit { opacity: 0; pointer-events: none; }
+
+.intro-bg-pokeballs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.intro-pokeball {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 12px solid rgba(255,255,255,0.05);
+  animation: rotatePokeball 8s linear infinite;
+}
+.pokeball-0  { top: 5%;  left: 10%; animation-delay: 0s; }
+.pokeball-1  { top: 20%; left: 80%; animation-delay: -2s;  width: 80px;  height: 80px;  }
+.pokeball-2  { top: 70%; left: 5%;  animation-delay: -4s;  width: 160px; height: 160px; }
+.pokeball-3  { top: 85%; left: 60%; animation-delay: -1s;  }
+.pokeball-4  { top: 40%; left: 50%; animation-delay: -6s;  width: 200px; height: 200px; opacity: 0.3; }
+.pokeball-5  { top: 10%; left: 40%; animation-delay: -3s;  width: 90px;  height: 90px;  }
+.pokeball-6  { top: 60%; left: 75%; animation-delay: -5s;  width: 140px; height: 140px; }
+.pokeball-7  { top: 30%; left: 20%; animation-delay: -7s;  width: 70px;  height: 70px;  }
+.pokeball-8  { top: 80%; left: 30%; animation-delay: -2s;  width: 110px; height: 110px; }
+.pokeball-9  { top: 15%; left: 65%; animation-delay: -4s;  width: 60px;  height: 60px;  }
+.pokeball-10 { top: 50%; left: 90%; animation-delay: -1s;  width: 130px; height: 130px; }
+.pokeball-11 { top: 90%; left: 15%; animation-delay: -3s;  width: 80px;  height: 80px;  }
+
+@keyframes rotatePokeball {
+  to { transform: rotate(360deg); }
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.intro-logo {
+  font-size: 5rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  letter-spacing: -2px;
+}
+.logo-poke  { color: #FFDE00; text-shadow: 3px 3px 0 #B8860B; }
+.logo-world { color: #fff;    text-shadow: 3px 3px 0 #333; }
+
+.intro-press-start {
+  font-size: 1.2rem;
+  color: #fff;
+  animation: blink 1.2s step-end infinite;
+  letter-spacing: 3px;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.intro-version {
+  color: rgba(255,255,255,0.4);
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+/* --- Dialogue Prof. Chen --- */
+.oak-dialogue {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  max-width: 700px;
+  padding: 2rem;
+  background: rgba(255,255,255,0.05);
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+.oak-portrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.oak-avatar {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.oak-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgb(255,255,255));
+}
+.oak-name {
+  color: #FFDE00;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.oak-text-box { flex: 1; }
+.oak-text-box p {
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  min-height: 100px;
+}
+.dialogue-next {
+  display: block;
+  color: #FFDE00;
+  text-align: right;
+  animation: blink 1s step-end infinite;
+  margin-top: 1rem;
+}

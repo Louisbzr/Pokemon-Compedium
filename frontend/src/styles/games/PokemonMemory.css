@@ -1,0 +1,112 @@
+/* ═══════════════════════════════
+   JEU 1 : POKÉDEX MEMORY
+═══════════════════════════════ */
+.memory-game {
+  text-align: center;
+  padding: 20px;
+}
+
+.memory-game h2 {
+  font-family: 'Press Start 2P', cursive;
+  color: var(--pk-red, #CC0000);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.memory-game p {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Grille des cartes */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colonnes par défaut */
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  perspective: 1000px; /* Indispensable pour l'effet 3D */
+}
+
+/* La carte (Conteneur) */
+.memory-card {
+  height: 120px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Le conteneur interne qui tourne */
+.memory-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d; /* Garde la 3D des enfants */
+}
+
+/* Classe ajoutée par React quand on clique */
+.memory-card.flipped .memory-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Faces avant et arrière */
+.memory-card-front,
+.memory-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Cache le dos quand retourné */
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dos de la carte (La Pokéball visible au début) */
+.memory-card-front {
+  background: linear-gradient(180deg, #CC0000 50%, white 50%);
+  border: 4px solid #1a1a2e;
+}
+/* Bouton central de la pokeball */
+.memory-card-front::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  border: 4px solid #1a1a2e;
+}
+
+/* Face de la carte (Le Sprite du Pokémon) */
+.memory-card-back {
+  background: white;
+  border: 3px solid var(--pk-yellow, #FFDE00);
+  transform: rotateY(180deg); /* Face cachée de base */
+}
+
+.memory-card-back img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* Rendre grisé si la paire est trouvée */
+.memory-card.matched .memory-card-back {
+  background: #e8f5e9;
+  border-color: #4CAF50;
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .memory-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes sur mobile */
+    gap: 10px;
+  }
+  .memory-card { height: 90px; }
+}

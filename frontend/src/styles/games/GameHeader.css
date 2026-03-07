@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+/* ==============================
+   GAME HEADER - HOMEPAGE STYLE
+   ============================== */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 2rem auto;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  border: 2px solid rgba(0,0,0,0.03);
+  max-width: 900px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.game-header:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+  border-color: rgba(255,204,0,0.2);
+}
+
+/* BOUTON RETOUR */
+.back-button {
+  background: #1a1a2e;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 15px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(26,26,46,0.2);
+  white-space: nowrap;
+}
+
+.back-button:hover {
+  background: #16213e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(26,26,46,0.3);
+}
+
+/* STATS */
+.game-stats {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.8rem 0.75rem;
+  min-width: 70px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  border-color: rgba(255,204,0,0.3);
+}
+
+.stat-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.65rem;
+  color: #666;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.15rem;
+  line-height: 1.1;
+}
+
+.stat-value {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.85rem;
+  color: #1a1a2e;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* ==============================
+   RESPONSIVE - GRANDE TABLETTE
+   ============================== */
+@media (max-width: 1024px) {
+  .game-header {
+    max-width: 95%;
+    padding: 1.25rem 1.5rem;
+  }
+}
+
+/* ==============================
+   RESPONSIVE - TABLETTE
+   ============================== */
+@media (max-width: 768px) {
+  .game-header {
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  
+  .back-button {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .game-stats {
+    width: 100%;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .stat-item {
+    min-width: 75px;
+    padding: 0.75rem 0.6rem;
+    flex: 1;
+    max-width: 85px;
+  }
+  
+  .stat-label {
+    font-size: 0.6rem;
+  }
+  
+  .stat-value {
+    font-size: 0.8rem;
+  }
+}
+
+/* ==============================
+   RESPONSIVE - MOBILE LARGE
+   ============================== */
+@media (max-width: 480px) {
+  .game-header {
+    margin: 0 0 1.5rem 0;
+    padding: 1rem;
+    border-radius: 15px;
+  }
+  
+  .back-button {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .game-stats {
+    gap: 0.75rem;
+  }
+  
+  .stat-item {
+    min-width: 65px;
+    padding: 0.65rem 0.5rem;
+  }
+  
+  .stat-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3px;
+  }
+  
+  .stat-value {
+    font-size: 0.75rem;
+  }
+}
+
+/* ==============================
+   RESPONSIVE - MOBILE PETIT
+   ============================== */
+@media (max-width: 360px) {
+  .game-header {
+    padding: 0.9rem 0.75rem;
+  }
+  
+  .back-button {
+    padding: 0.85rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .game-stats {
+    gap: 0.5rem;
+  }
+  
+  .stat-item {
+    min-width: 60px;
+    padding: 0.6rem 0.4rem;
+  }
+  
+  .stat-label {
+    font-size: 0.5rem;
+  }
+  
+  .stat-value {
+    font-size: 0.7rem;
+  }
+}
+
+/* ==============================
+   RESPONSIVE - ULTRA PETIT
+   ============================== */
+@media (max-width: 320px) {
+  .game-header {
+    padding: 0.8rem 0.6rem;
+  }
+  
+  .back-button {
+    font-size: 0.85rem;
+    padding: 0.8rem 1rem;
+  }
+  
+  .game-stats {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  
+  .stat-item {
+    min-width: 55px;
+    padding: 0.55rem 0.35rem;
+    flex: 0 1 auto;
+  }
+}

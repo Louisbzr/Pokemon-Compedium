@@ -1,0 +1,31 @@
+export const POKEMON_BY_LETTER = {
+  A: { id: 59,  name: 'Arcanine'   },
+  B: { id: 1,   name: 'Bulbasaur'  },
+  C: { id: 4,   name: 'Charmander' },
+  D: { id: 149, name: 'Dragonite'  },
+  E: { id: 133, name: 'Eevee'      },
+  F: { id: 136, name: 'Flareon'    },
+  G: { id: 94,  name: 'Gengar'     },
+  H: { id: 93,  name: 'Haunter'    },
+  I: { id: 2,   name: 'Ivysaur'    },
+  J: { id: 39,  name: 'Jigglypuff' },
+  K: { id: 115, name: 'Kangaskhan' },
+  L: { id: 131, name: 'Lapras'     },
+  M: { id: 150, name: 'Mewtwo'     },
+  N: { id: 38,  name: 'Ninetales'  },
+  O: { id: 95,  name: 'Onix'       },
+  P: { id: 25,  name: 'Pikachu'    },
+  Q: { id: 186, name: 'Quagsire'   },
+  R: { id: 26,  name: 'Raichu'     },
+  S: { id: 7,   name: 'Squirtle'   },
+  T: { id: 128, name: 'Tauros'     },
+  U: { id: 197, name: 'Umbreon'    },
+  V: { id: 134, name: 'Vaporeon'   },
+  W: { id: 40,  name: 'Wigglytuff' },
+  X: { id: 178, name: 'Xatu'       },
+  Y: { id: 193, name: 'Yanma'      },
+  Z: { id: 145, name: 'Zapdos'     },
+};
+
+export const spriteUrl = (id) =>
+  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;

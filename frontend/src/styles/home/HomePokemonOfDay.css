@@ -1,0 +1,238 @@
+/* ==============================
+   POKÉMON DU JOUR
+   ============================= */
+.pod-section {
+  padding: 5rem 2rem;
+  background: #fff;
+}
+
+.pod-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  align-items: stretch;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ==============================
+   CARTE POKÉMON
+   ============================= */
+.pod-card {
+  flex: 0.8;
+  min-width: 260px;
+  position: relative;
+  background: #1a1a2e;
+  border-radius: 24px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.pod-bg-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  filter: blur(40px);
+  transform: scale(1.5);
+  pointer-events: none;
+}
+
+.pod-number {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.85rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.pod-sprite {
+  width: 130px;
+  height: 130px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  animation: floatPkmn 4s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes floatPkmn {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.pod-name {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+  text-transform: capitalize;
+  position: relative;
+}
+
+/* TYPES AVEC ICÔNES SVG */
+.pod-types {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 12px 0;
+  position: relative;
+}
+
+.pod-type-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pod-type-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.pod-type-icon {
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0;
+  filter: brightness(1.25) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+
+.pod-type-item .type-badge {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 12px;
+  font-weight: 800;
+  min-width: 32px;
+}
+
+/* ==============================
+   FAMILLE D'ÉVOLUTION
+   ============================= */
+.pod-card .evo-family {
+  background: transparent;
+  padding: 1rem 0 0;
+  margin-top: 3.5rem;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pod-card .evo-family-title {
+  font-size: 0.7rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.pod-card .evo-family-chain {
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.pod-card .evo-member {
+  min-width: 65px;
+}
+
+.pod-card .evo-member-img-wrap,
+.pod-card .evo-member-img-wrap img {
+  width: 52px;
+  height: 52px;
+}
+
+.pod-card .evo-member-name {
+  font-size: 0.68rem;
+}
+
+.pod-card .evo-member-total {
+  display: none;
+}
+
+.pod-card .evo-arrow {
+  padding: 0 0.2rem;
+}
+
+.pod-card .evo-arrow-line {
+  width: 16px;
+}
+
+.pod-card .evo-arrow-icon {
+  font-size: 0.7rem;
+}
+
+/* ==============================
+   FICHE STRATÉGIQUE
+   ============================= */
+.fiche-strat {
+  flex: 1.6;
+  min-width: 320px;
+}
+
+/* ==============================
+   EN-TÊTE
+   ============================= */
+.pod-ball-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.section-header h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ==============================
+   RESPONSIVE
+   ============================= */
+@media (max-width: 900px) {
+  .pod-wrapper { 
+    flex-direction: column; 
+  }
+  .fiche-strat { 
+    min-width: unset; 
+  }
+}
+
+@media (max-width: 480px) {
+  .pod-section {
+    padding: 3rem 1rem;
+  }
+  
+  .pod-card {
+    min-width: unset;
+    padding: 1.5rem;
+  }
+  
+  .pod-name {
+    font-size: 1.4rem;
+  }
+  
+  .pod-sprite {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .pod-type-item {
+    padding: 6px 10px;
+    gap: 3px;
+  }
+  
+  .pod-type-icon {
+    width: 14px !important;
+    height: 14px !important;
+  }
+}

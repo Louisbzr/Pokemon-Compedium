@@ -1,0 +1,146 @@
+/* ═══════════════════════════════
+   JEU 2 : PLUS OU MOINS ? (VS)
+═══════════════════════════════ */
+.higher-lower-game {
+  text-align: center;
+  padding: 20px;
+}
+
+.higher-lower-game h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  color: var(--pk-ink, #1a1a2e);
+  margin-bottom: 5px;
+}
+
+.higher-lower-game .score {
+  font-family: 'Nunito', sans-serif;
+  color: var(--pk-red, #CC0000);
+  font-weight: 900;
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+/* Disposition face à face */
+.vs-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* La carte d'un Pokémon */
+.pokemon-card {
+  flex: 1;
+  background: white;
+  border-radius: 25px;
+  padding: 30px 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 3px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pokemon-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+}
+
+.pokemon-card h4 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  margin: 0 0 15px 0;
+  color: var(--pk-ink, #1a1a2e);
+}
+
+/* La statistique affichée */
+.stat-value {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  color: var(--pk-red, #CC0000);
+  background: rgba(204, 0, 0, 0.05);
+  padding: 15px 25px;
+  border-radius: 50px;
+  margin: 0;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Animations de Succès/Échec (Correct/Wrong) */
+.stat-value.correct {
+  color: white;
+  background: #4CAF50;
+  animation: popGreen 0.5s ease-out;
+}
+.stat-value.wrong {
+  color: white;
+  background: #FF5252;
+  animation: shakeRed 0.4s ease-in-out;
+}
+
+/* Le Badge VS central */
+.vs-badge {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  color: white;
+  background: var(--pk-ink, #1a1a2e);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+/* Les Boutons d'Action (Higher / Lower) */
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.action-buttons button {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-higher {
+  background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+  box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+}
+.btn-higher:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(76, 175, 80, 0.6); }
+
+.btn-lower {
+  background: linear-gradient(135deg, #FF5252 0%, #D32F2F 100%);
+  box-shadow: 0 6px 15px rgba(255, 82, 82, 0.4);
+}
+.btn-lower:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255, 82, 82, 0.6); }
+
+/* Animation Réussite/Echec */
+@keyframes popGreen { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+@keyframes shakeRed { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+
+/* Mobile (S'empilent) */
+@media (max-width: 768px) {
+  .vs-container { flex-direction: column; gap: 10px; }
+  .vs-badge { position: absolute; } /* Peut se superposer entre les deux */
+  .pokemon-card { width: 100%; padding: 20px; }
+  .pokemon-card img { width: 100px; height: 100px; }
+}

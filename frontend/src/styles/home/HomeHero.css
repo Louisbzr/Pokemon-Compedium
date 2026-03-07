@@ -1,0 +1,225 @@
+/* ==============================
+   HERO SECTION
+   ============================== */
+.hero-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pokémon flottants */
+.hero-floating-pokemon {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.floating-pokemon {
+  position: absolute;
+  animation: floatPkmn 6s ease-in-out infinite;
+  opacity: 0.3;
+  filter: drop-shadow(0 0 20px rgba(255,255,0,0.3));
+}
+.floating-pokemon img {
+  width: 80px;
+  height: 80px;
+  image-rendering: pixelated;
+}
+.fp-0 { top: 10%; left: 5%;  animation-duration: 7s;   }
+.fp-1 { top: 20%; left: 85%; animation-duration: 5s;   }
+.fp-2 { top: 60%; left: 3%;  animation-duration: 8s;   }
+.fp-3 { top: 70%; left: 90%; animation-duration: 6s;   }
+.fp-4 { top: 5%;  left: 45%; animation-duration: 9s;   }
+.fp-5 { top: 80%; left: 40%; animation-duration: 7s;   }
+.fp-6 { top: 40%; left: 2%;  animation-duration: 5.5s; }
+.fp-7 { top: 45%; left: 92%; animation-duration: 6.5s; }
+
+@keyframes floatPkmn {
+  0%, 100% { transform: translateY(0px)   rotate(-3deg); }
+  50%       { transform: translateY(-25px) rotate(3deg);  }
+}
+
+/* Herbes */
+.hero-grass {
+  position: absolute;
+  bottom: 60px;
+  left: 0; right: 0;
+  height: 60px;
+  display: flex;
+  pointer-events: none;
+}
+.grass-blade {
+  position: absolute;
+  bottom: 0;
+  width: 8px;
+  height: 40px;
+  background: #2d7a2d;
+  border-radius: 4px 4px 0 0;
+  transform-origin: bottom center;
+  animation: swayGrass 2s ease-in-out infinite alternate;
+}
+.grass-0 { height: 30px; background: #3a8a3a; }
+.grass-1 { height: 50px; background: #2d6e2d; }
+.grass-2 { height: 35px; background: #4a9a4a; }
+.grass-3 { height: 45px; background: #256025; }
+.grass-4 { height: 25px; background: #5aaa5a; }
+@keyframes swayGrass {
+  from { transform: rotate(-8deg); }
+  to   { transform: rotate(8deg);  }
+}
+
+/* Contenu central */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,222,0,0.15);
+  border: 1px solid rgba(255,222,0,0.4);
+  color: #FFDE00;
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(255,222,0,0.3); }
+  50%       { box-shadow: 0 0 0 8px rgba(255,222,0,0);   }
+}
+
+.hero-title {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  margin: 0 0 1.5rem;
+  letter-spacing: -3px;
+}
+.hero-title-poke  { color: #FFDE00; text-shadow: 4px 4px 0 #B8860B; }
+.hero-title-world { color: #ffffff; text-shadow: 4px 4px 0 #0f3460; }
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+}
+
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+.cta-primary {
+  background: linear-gradient(135deg, #FFDE00, #F0B000);
+  color: #1a1a2e;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(255,222,0,0.4);
+}
+.cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(255,222,0,0.6);
+}
+
+.cta-secondary {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.3);
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+}
+.cta-secondary:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: #fff;
+  transform: translateY(-3px);
+}
+
+/* Vague de bas */
+.hero-wave {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+}
+.hero-wave svg  { width: 100%; height: 100%; }
+.hero-wave path { fill: #f5f5f5; }
+
+.hero-nav {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.hero-nav-btn {
+  padding: 0.5rem 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+}
+
+.hero-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: white;
+}
+
+.hero-nav-btn.active {
+  background: white;
+  color: #1a1a2e;
+  font-weight: 700;
+  border-color: white;
+}
+
+.hero-lang {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  z-index: 10;
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.hero-lang-btn {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.hero-lang-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.hero-lang-btn.active {
+  background: rgba(255, 222, 0, 0.2);
+  border-color: #FFDE00;
+  color: #FFDE00;
+  font-weight: 700;
+}

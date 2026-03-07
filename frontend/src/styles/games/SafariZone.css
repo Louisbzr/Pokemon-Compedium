@@ -1,0 +1,341 @@
+/* ═══════════════════════════════
+   JEU LONG TERME : SAFARI ZONE IDLE
+═══════════════════════════════ */
+.safari-zone-game {
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Nunito', sans-serif;
+  user-select: none; /* Empêche de surligner le texte en spammant les clics */
+}
+
+/* --- HUD (Ressources) --- */
+.safari-hud {
+  display: flex;
+  justify-content: space-between;
+  background: #1a1a2e;
+  padding: 15px 30px;
+  border-radius: 50px;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  margin-bottom: 25px;
+}
+.hud-stardust { color: #FFDE00; }
+.hud-dps { color: #FF5252; }
+.hud-collection { color: #4FC3F7; }
+
+/* --- LA ZONE SAUVAGE (Cliquable) --- */
+.wild-encounter-area {
+  background: linear-gradient(180deg, #81C784 0%, #388E3C 100%);
+  border: 6px solid #1B5E20;
+  border-radius: 30px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  margin-bottom: 30px;
+  transition: transform 0.1s;
+}
+.wild-encounter-area:active { transform: scale(0.98); }
+
+.wild-encounter-area h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  color: white;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.wild-encounter-area h3 span { color: #FFDE00; }
+
+.wild-pokemon-container {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wild-sprite {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 20px rgba(0,0,0,0.3));
+  image-rendering: pixelated;
+  transition: filter 0.2s;
+  animation: floatIdle 3s infinite ease-in-out;
+}
+
+.wild-sprite.weakened {
+  filter: drop-shadow(0 15px 20px rgba(0,0,0,0.3)) sepia(0.3) hue-rotate(-30deg);
+  animation: trembleWeak 0.5s infinite;
+}
+
+/* La Barre de vie */
+.hp-bar-container {
+  width: 100%;
+  max-width: 400px;
+  height: 25px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50px;
+  border: 3px solid white;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.hp-bar-fill {
+  height: 100%;
+  transition: width 0.1s linear, background-color 0.3s;
+}
+
+.hp-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6rem;
+  color: white;
+  text-shadow: 1px 1px 0 black;
+  white-space: nowrap;
+}
+
+.click-instruction {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.7);
+  animation: blinkText 1.5s infinite;
+  margin: 0;
+}
+
+/* Animations de dégâts au clic (JavaScript gère le spawn) */
+.damage-popup {
+  position: fixed; /* Par rapport à l'écran pour suivre la souris */
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 0 red, -2px -2px 0 red, 2px -2px 0 red, -2px 2px 0 red;
+  pointer-events: none; /* Ignore la souris */
+  animation: floatUp 0.8s ease-out forwards;
+  z-index: 1000;
+}
+
+/* Animation de capture */
+.pokeball-catching {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(180deg, #CC0000 50%, white 50%);
+  border: 4px solid #1a1a2e;
+  border-radius: 50%;
+  position: relative;
+  animation: shakeCatch 1.5s ease-in-out;
+}
+.pokeball-catching::after {
+  content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 15px; height: 15px; background: white; border-radius: 50%; border: 3px solid #1a1a2e;
+}
+
+/* --- BOUTIQUE ET AMÉLIORATIONS --- */
+.safari-shop { margin-bottom: 30px; text-align: center; }
+
+.upgrade-btn {
+  background: #FFDE00;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 30px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: #1a1a2e;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 222, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin: 0 auto;
+  transition: transform 0.2s;
+}
+.upgrade-btn:active { transform: translateY(4px); box-shadow: none; }
+.upgrade-btn span { font-family: 'Press Start 2P', cursive; font-size: 0.6rem; color: #CC0000; }
+.upgrade-btn.disabled { background: #e0e0e0; color: #999; cursor: not-allowed; box-shadow: none; }
+.upgrade-btn.disabled span { color: #999; }
+
+/* --- L'ÉQUIPE --- */
+.safari-team-section h3, .safari-collection-section h3 {
+  font-family: 'Press Start 2P', cursive; font-size: 0.8rem; color: #CC0000; text-align: left; margin-bottom: 15px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.team-member {
+  background: white;
+  border-radius: 15px;
+  border: 3px solid #1a1a2e;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.team-member:hover { transform: translateY(-5px); border-color: #FF5252; }
+.team-member img { width: 60%; height: 60%; object-fit: contain; }
+
+.member-stats {
+  position: absolute; bottom: -10px; background: #1a1a2e; color: white; padding: 2px 8px; border-radius: 10px;
+  font-family: 'Press Start 2P', cursive; font-size: 0.5rem; border: 2px solid white;
+}
+
+.empty-slot { background: rgba(0,0,0,0.05); border: 2px dashed #ccc; color: #999; font-size: 0.7rem; font-weight: 800; }
+
+/* --- COLLECTION --- */
+.collection-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: rgba(255,255,255,0.5);
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.collection-item {
+  width: 50px; height: 50px; background: white; border-radius: 10px; border: 2px solid rgba(0,0,0,0.1);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.collection-item:hover { border-color: #4CAF50; transform: scale(1.1); }
+.collection-item img { width: 80%; height: 80%; object-fit: contain; }
+
+/* --- ANIMATIONS CLEFS --- */
+@keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-50px) scale(1.5); opacity: 0; } }
+@keyframes floatIdle { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes trembleWeak { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+@keyframes blinkText { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+@keyframes shakeCatch { 0%, 100% { transform: translateX(0) rotate(0deg); } 20%, 60% { transform: translateX(-15px) rotate(-15deg); } 40%, 80% { transform: translateX(15px) rotate(15deg); } }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .safari-hud { flex-direction: column; gap: 10px; align-items: center; }
+  .team-grid { grid-template-columns: repeat(3, 1fr); } /* 3 par ligne sur mobile */
+}
+
+/* ── ANIMATION SHAKE (feedback de dégât) ── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px) rotate(-2deg); }
+  40%       { transform: translateX(8px)  rotate(2deg); }
+  60%       { transform: translateX(-5px); }
+  80%       { transform: translateX(4px); }
+}
+.shake { animation: shake 0.3s ease; }
+
+/* ── POKÉBALL QUI TOURNE ── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.pokeball-spin {
+  font-size: 3.5rem;
+  display: inline-block;
+  animation: spin 0.6s linear infinite;
+}
+.catch-rate-display {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin: 4px 0;
+}
+.catch-result-msg {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+/* ── TYPE BADGES ── */
+.type-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: capitalize;
+  margin: 0 2px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+.wild-types {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+/* ── AVANTAGE / FAIBLESSE DE TYPE SUR LES MEMBRES ── */
+.type-advantage-badge {
+  font-size: 0.65rem;
+  color: #FFD700;
+  font-weight: bold;
+  text-shadow: 0 0 6px #FFD700;
+}
+.type-weakness-badge {
+  font-size: 0.65rem;
+  color: #88ccff;
+  font-weight: bold;
+}
+
+/* ── BARRE DE PROGRESSION FUSION ── */
+.merge-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+.merge-progress-fill {
+  height: 100%;
+  background: #FFDE00;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* ── AVERTISSEMENT BOSS ── */
+.boss-warning {
+  color: #FF5252;
+  font-weight: bold;
+  animation: pulse 1s ease infinite;
+}
+.boss-badge {
+  color: #FF5252;
+  font-weight: bold;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ── RESET BUTTON ── */
+.reset-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.2s;
+}
+.reset-btn:hover { background: rgba(255,255,255,0.1); }
+
+/* ── TIMER ROUGE QUAND URGENT ── */
+.timer-flee { transition: color 0.3s ease; }

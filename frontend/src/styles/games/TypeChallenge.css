@@ -1,0 +1,290 @@
+/* ═══════════════════════════════
+   JEU 3 : LE DÉFI DES TYPES
+═══════════════════════════════ */
+.type-challenge-game {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+/* Le HUD (Score et Timer) */
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+  padding: clamp(12px, 3vw, 18px) clamp(20px, 5vw, 35px);
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50px;
+  gap: 1rem;
+}
+
+.score {
+  color: var(--pk-ink, #1a1a2e);
+}
+
+.timer {
+  color: #4CAF50;
+  transition: color 0.3s ease;
+  font-weight: 400;
+}
+
+/* Timer critique */
+.timer.danger {
+  color: #CC0000;
+  animation: pulseDanger 0.5s infinite alternate;
+}
+
+@keyframes pulseDanger {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.5; transform: scale(1.1); }
+}
+
+/* Pokémon cible */
+.pokemon-target {
+  margin-bottom: 2rem;
+}
+
+.pokemon-target img {
+  width: clamp(120px, 25vw, 200px);
+  height: clamp(120px, 25vw, 200px);
+  max-width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.2));
+  image-rendering: pixelated;
+  margin-bottom: 0.75rem;
+}
+
+.pokemon-target h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  font-weight: 900;
+  color: #555;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Grille des boutons (2x2 responsive) */
+.type-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(10px, 3vw, 18px);
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Boutons de types + ICÔNES */
+.type-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(0.55rem, 2.5vw, 0.8rem);
+  letter-spacing: 0.5px;
+  padding: clamp(14px, 4vw, 22px) clamp(10px, 3vw, 16px);
+  border-radius: 20px;
+  border: 2px solid transparent;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  
+  /* Layout icône + texte */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1.5vw, 12px);
+  min-height: clamp(55px, 14vw, 80px);
+  position: relative;
+  overflow: hidden;
+}
+
+.type-btn .type-icon {
+  width: clamp(14px, 3vw, 20px);
+  height: clamp(14px, 3vw, 20px);
+  flex-shrink: 0;
+  filter: brightness(1.2) drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+
+.type-btn span {
+  line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.type-btn:hover:not(:disabled) {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+.type-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.type-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* GRADIENTS POKÉMON OFFICIELS (inchangés) */
+.type-normal   { background: linear-gradient(135deg, #A8A878 0%, #8B8B5F 100%); border-color: rgba(215, 204, 200, 0.8); }
+.type-fire     { background: linear-gradient(135deg, #F08030 0%, #DC5F1B 100%); border-color: rgba(255, 112, 67, 0.8); }
+.type-water    { background: linear-gradient(135deg, #6890F0 0%, #4A7FD6 100%); border-color: rgba(79, 195, 247, 0.8); }
+.type-grass    { background: linear-gradient(135deg, #78C850 0%, #5FA842 100%); border-color: rgba(129, 199, 132, 0.8); }
+.type-electric { background: linear-gradient(135deg, #F8D030 0%, #E6B800 100%); border-color: rgba(255, 213, 79, 0.8); }
+.type-ice      { background: linear-gradient(135deg, #98D8D8 0%, #7BB0B0 100%); border-color: rgba(128, 222, 234, 0.8); }
+.type-fighting { background: linear-gradient(135deg, #C03028 0%, #A52721 100%); border-color: rgba(229, 115, 115, 0.8); }
+.type-poison   { background: linear-gradient(135deg, #A040A0 0%, #7D2E7D 100%); border-color: rgba(186, 104, 200, 0.8); }
+.type-ground   { background: linear-gradient(135deg, #E0C068 0%, #C4A551 100%); border-color: rgba(255, 183, 77, 0.8); }
+.type-flying   { background: linear-gradient(135deg, #A890F0 0%, #8E70D6 100%); border-color: rgba(159, 168, 218, 0.8); }
+.type-psychic  { background: linear-gradient(135deg, #F85888 0%, #E54576 100%); border-color: rgba(240, 98, 146, 0.8); }
+.type-bug      { background: linear-gradient(135deg, #A8B820 0%, #8EA42E 100%); border-color: rgba(174, 213, 129, 0.8); }
+.type-rock     { background: linear-gradient(135deg, #B8A038 0%, #9C8230 100%); border-color: rgba(212, 225, 87, 0.8); }
+.type-ghost    { background: linear-gradient(135deg, #705898 0%, #5C4673 100%); border-color: rgba(149, 117, 205, 0.8); }
+.type-dragon   { background: linear-gradient(135deg, #7038F8 0%, #5D2FD6 100%); border-color: rgba(121, 134, 203, 0.8); }
+.type-dark     { background: linear-gradient(135deg, #705848 0%, #5C463F 100%); border-color: rgba(161, 136, 127, 0.8); }
+.type-steel    { background: linear-gradient(135deg, #B8B8D0 0%, #9C9CB8 100%); border-color: rgba(144, 164, 174, 0.8); }
+.type-fairy    { background: linear-gradient(135deg, #EE99AC 0%, #D8859B 100%); border-color: rgba(244, 143, 177, 0.8); }
+
+/* Effet gradient brillant au hover */
+.type-btn::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(255,255,255,0.3), 
+    rgba(255,255,255,0.1), 
+    transparent);
+  border-radius: 22px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.type-btn:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+/* Game Over */
+.tc-retry-btn, .game-over-screen button {
+  width: 100%;
+  padding: clamp(14px, 4vw, 20px);
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(0.75rem, 2.5vw, 1rem);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 15px rgba(59, 130, 246, 0.3);
+  margin-top: 1.25rem;
+  letter-spacing: 0.2em;
+}
+
+.tc-retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4);
+}
+
+.game-loading {
+  font-family: 'Press Start 2P', cursive;
+  color: #666;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+}
+
+/* ==============================
+   RESPONSIVE - GRANDE TABLETTE
+   ============================== */
+@media (max-width: 1024px) {
+  .type-challenge-game {
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+/* ==============================
+   RESPONSIVE - TABLETTE
+   ============================== */
+@media (max-width: 768px) {
+  .type-challenge-game {
+    padding: 1.5rem 1rem;
+    max-width: 95vw;
+  }
+  
+  .hud {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  
+  .pokemon-target {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* ==============================
+   RESPONSIVE - MOBILE LARGE
+   ============================== */
+@media (max-width: 480px) {
+  .type-challenge-game {
+    padding: 1.25rem 0.75rem;
+  }
+  
+  .hud {
+    padding: clamp(10px, 4vw, 14px) clamp(15px, 6vw, 25px);
+    border-radius: 30px;
+  }
+  
+  .type-options-grid {
+    gap: clamp(8px, 4vw, 15px);
+  }
+}
+
+/* ==============================
+   RESPONSIVE - MOBILE PETIT
+   ============================== */
+@media (max-width: 360px) {
+  .type-challenge-game {
+    padding: 1rem 0.5rem;
+  }
+  
+  .hud {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  
+  .pokemon-target img {
+    margin-bottom: 0.5rem;
+  }
+  
+  .pokemon-target h3 {
+    padding: 0 0.5rem;
+  }
+}
+
+/* ==============================
+   RESPONSIVE - ULTRA PETIT
+   ============================== */
+@media (max-width: 320px) {
+  .type-challenge-game {
+    padding: 0.75rem 0.4rem;
+  }
+  
+  .type-btn {
+    padding: clamp(12px, 5vw, 16px) clamp(8px, 4vw, 12px);
+  }
+  
+  .type-options-grid {
+    gap: 0.75rem;
+  }
+}

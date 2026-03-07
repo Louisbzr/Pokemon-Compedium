@@ -1,0 +1,112 @@
+/* ==============================
+   SHADOW GAME - HOMEPAGE STYLE
+   ============================= */
+.shadow-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.shadow-display h2 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  color: #1a1a2e;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.pokemon-display {
+  background: white;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: 2px solid rgba(0,0,0,0.03);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  width: 100%;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.pokemon-display:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  border-color: rgba(255,204,0,0.2);
+}
+
+.pokemon-image {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  transition: filter 0.6s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* INPUT */
+.answer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 500px;
+  width: 100%;
+}
+
+.guess-input {
+  width: 100%;
+  padding: 1.2rem 1.8rem;
+  font-size: 1.1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 500;
+}
+
+.guess-input:focus {
+  border-color: #1a1a2e;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* BOUTON */
+.submit-button {
+  padding: 1rem 2.5rem;
+  background: #1a1a2e;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(26,26,46,0.2);
+  align-self: center;
+}
+
+.submit-button:hover {
+  background: #16213e;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(26,26,46,0.3);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .pokemon-display { padding: 2rem 1.5rem; min-height: 250px; }
+  .pokemon-image { width: 180px; height: 180px; }
+  .guess-input { padding: 1rem 1.5rem; font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .shadow-display { gap: 1.5rem; }
+  .pokemon-display { padding: 1.5rem 1rem; }
+  .pokemon-image { width: 150px; height: 150px; }
+}

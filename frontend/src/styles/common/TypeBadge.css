@@ -1,0 +1,36 @@
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 5px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  white-space: nowrap;
+}
+
+.type-badge-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* Icône blanche */
+  flex-shrink: 0;
+}
+
+/* Tailles */
+.type-badge-sm .type-badge-icon { 
+    width: 11px; 
+    height: 11px; 
+}
+
+.type-badge-lg .type-badge-icon { 
+    width: 18px; 
+    height: 18px; 
+}
+.type-badge-lg { 
+    font-size: 0.9rem; 
+    padding: 6px 16px; 
+}
+

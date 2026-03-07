@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+/* ═══════════════════════════════
+FILTER-BAR & SORT-BAR
+HOMEPAGE BLEU NUIT THEME APP
+═══════════════════════════════ */
+.filter-bar, .sort-bar {
+margin: 30px auto;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 25px;
+flex-wrap: wrap;
+position: relative;
+overflow: hidden;
+z-index: 1;
+}
+
+
+.filter-bar > div,
+.sort-bar > div {
+display: flex;
+align-items: center;
+gap: 12px;
+background: rgba(0, 0, 0, 0.4);
+backdrop-filter: blur(10px);
+padding: 16px 28px;
+border-radius: 50px;
+border: 2px solid rgba(255, 255, 255, 0.2);
+transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+position: relative;
+overflow: hidden;
+}
+
+
+
+.filter-bar > div:hover::before,
+.sort-bar > div:hover::before {
+opacity: 1;
+}
+
+.filter-bar label,
+.sort-bar label {
+font-family: 'Nunito', sans-serif;
+font-weight: 800;
+color: rgba(255, 255, 255, 0.9);
+font-size: 0.95rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+white-space: nowrap;
+text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.filter-bar select,
+.sort-bar select {
+padding: 12px 24px;
+border-radius: 25px;
+border: 2px solid rgba(255, 220, 0, 0.5);
+background: white;
+font-size: 0.95rem;
+font-weight: 700;
+font-family: 'Nunito', sans-serif;
+color: #1a1a2e;
+cursor: pointer;
+transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+min-width: 160px;
+outline: none;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+appearance: none;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23CC0000' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 18px center;
+padding-right: 42px;
+}
+
+.filter-bar select:hover,
+.sort-bar select:hover {
+border-color: #FFDC00;
+box-shadow:
+0 6px 20px rgba(0,0,0,0.3),
+0 0 0 3px rgba(255, 220, 0, 0.3);
+transform: translateY(-2px);
+}
+
+.filter-bar select:focus,
+.sort-bar select:focus {
+border-color: #CC0000;
+box-shadow:
+0 6px 20px rgba(204, 0, 0, 0.3),
+0 0 0 3px rgba(204, 0, 0, 0.2);
+}
+
+/* ═══════════════════════════════
+ANIMATIONS
+═══════════════════════════════ */
+@keyframes pokeball-bounce {
+0%, 100% { transform: translateY(0) rotate(0deg); }
+25% { transform: translateY(-10px) rotate(-5deg); }
+75% { transform: translateY(-5px) rotate(5deg); }
+}
+
+/* ═══════════════════════════════
+RESPONSIVE
+═══════════════════════════════ */
+@media (max-width: 768px) {
+.filter-bar, .sort-bar {
+padding: 25px 20px;
+margin: 20px 10px;
+flex-direction: column;
+gap: 20px;
+}
+
+.filter-bar > div,
+.sort-bar > div {
+width: 100%;
+justify-content: center;
+}
+
+.filter-bar select,
+.sort-bar select {
+min-width: 150px;
+font-size: 0.92rem;
+}
+}
+
+@media (max-width: 480px) {
+.filter-bar, .sort-bar {
+padding: 20px 15px;
+}
+
+.filter-bar > div,
+.sort-bar > div {
+padding: 14px 22px;
+gap: 10px;
+}
+
+.filter-bar label,
+.sort-bar label {
+font-size: 0.88rem;
+}
+
+.filter-bar select,
+.sort-bar select {
+min-width: 140px;
+padding: 10px 20px;
+}
+}

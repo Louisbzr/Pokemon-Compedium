@@ -1,0 +1,297 @@
+/* src/styles/layout/AppNavbar.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@600;700;800&display=swap');
+
+.poke-navbar {
+  position: fixed ;
+  top: 0 ;
+  z-index: 9999 ;
+  width: 100vw ; /* Full width */
+  left: 0 ;
+  margin: 0 ;
+  padding: 25px 0 ;
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+  border-bottom: 4px solid rgba(255, 204, 0, 0.55);
+  padding: 25px 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+  
+  /* ═══ FLUIDITÉ SCROLL ═══ */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  will-change: transform;
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+.poke-navbar-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px; /* +12% gap pour équilibre */
+}
+
+/* ── Logo ── (agrandi) */
+.poke-logo {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  padding: 0;
+  line-height: 1;
+}
+
+.logo-poke {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.25rem; /* +14% taille */
+  color: #ffcc00;
+  gap: 5px;
+  letter-spacing: 1px;
+}
+
+.logo-world {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.25rem; /* +14% taille */
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+/* ── Liens nav ── (padding +20%) */
+.poke-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 35px; /* +33% gap */
+}
+
+.poke-nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1rem; /* +5% */
+  color: rgba(255, 255, 255, 0.75);
+  padding: 5px 0px; 
+  transition: color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+  padding-right: 3px;
+}
+
+.poke-nav-link:hover {
+  color: #ffffff;
+}
+
+.poke-nav-link.active {
+  border-bottom: 2px solid rgba(255, 204, 0, 0.8);
+}
+
+/* ── Sélecteur de langue ── (hauteur +20%) */
+.poke-nav-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.lang-label {
+  font-size: 1.25rem; /* +14% */
+  opacity: 0.9;
+}
+
+.lang-select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1rem; /* +11% */
+  padding: 8px 14px; /* +33% hauteur */
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff99' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.lang-select:hover,
+.lang-select:focus {
+  border-color: rgba(255, 204, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.lang-select option {
+  background: #1a1a2e;
+  color: #ffffff;
+}
+
+/* ── Burger button ── */
+.burger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 32px;
+  height: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10000;
+}
+
+.burger-btn span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #ffcc00;
+  border-radius: 3px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Animation croix quand ouvert */
+.burger-btn.open span:nth-child(1) {
+  transform: translateY(9.5px) rotate(45deg);
+}
+.burger-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+.burger-btn.open span:nth-child(3) {
+  transform: translateY(-9.5px) rotate(-45deg);
+}
+
+@media (max-width: 970px) {
+  .burger-btn {
+    display: flex; /* Visible sous 970px */
+  }
+
+  .poke-navbar-inner {
+    flex-wrap: wrap;
+    padding: 0 24px;
+    gap: 0;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Nav cachée par défaut, visible si .menu-open */
+  .poke-nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: linear-gradient(180deg, #16213e 0%, #0f0f23 100%);
+    border-top: 2px solid rgba(255, 204, 0, 0.3);
+    padding: 12px 0;
+    gap: 4px;
+    order: 3;
+  }
+
+  .poke-nav-links.menu-open {
+    display: flex;
+  }
+
+  .poke-nav-link {
+    width: 100%;
+    text-align: left;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    border-radius: 0;
+  }
+
+  .poke-nav-link.active {
+    border-bottom: none;
+    background: rgba(255, 204, 0, 0.1);
+    border-left: 3px solid #ffcc00;
+  }
+
+  .nav-sprite {
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+  }
+
+  .logo-poke,
+  .logo-world {
+    font-size: 1.1rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .poke-navbar {
+    padding: 20px 0;
+  }
+
+  .poke-navbar-inner {
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .poke-nav-links {
+    gap: 5px;
+  }
+
+  .poke-nav-link {
+    font-size: 0.88rem;
+    padding: 6px 12px;
+  }
+
+  .nav-sprite { width: 24px; height: 24px; margin-right: 6px; }
+  .lang-sprite { width: 22px; height: 22px; margin-right: 5px; }
+  
+  .logo-poke,
+  .logo-world {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .poke-navbar {
+    padding: 16px 0;
+  }
+
+  .poke-navbar-inner {
+    padding: 0 12px;
+    gap: 14px;
+  }
+
+  .poke-nav-link {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+  }
+
+  .nav-sprite { width: 20px; height: 20px; margin-right: 5px; }
+  .lang-sprite { width: 20px; height: 20px; margin-right: 4px; }
+}
+
+/* ── Sprites navigation ── */
+.nav-sprite, .lang-sprite {
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  margin-right: 10px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+  image-rendering: pixelated;
+}
+
+.lang-sprite {
+  margin-right: 8px;
+  width: 28px;
+  height: 28px; /* Légèrement plus grand pour planète */
+}
+
+.poke-nav-link:hover .nav-sprite {
+  filter: drop-shadow(0 0 12px rgba(255, 204, 0, 0.9)) drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+}
+
+
+.poke-nav-right:hover .lang-sprite {
+  filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.8)) drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+}
+
+@media (max-width: 768px) {
+  .nav-sprite { width: 22px; height: 22px; margin-right: 8px; }
+  .lang-sprite { width: 24px; height: 24px; margin-right: 6px; }
+}

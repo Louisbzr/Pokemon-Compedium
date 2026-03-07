@@ -1,0 +1,184 @@
+.evo-family {
+  background: #1a1a2e;
+  border-radius: 20px;
+  padding: 1.8rem 2rem;
+  margin-top: 1.5rem;
+}
+
+.evo-family-title {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Chaîne --- */
+.evo-family-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+/* --- Membre --- */
+.evo-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1rem 1.2rem;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  min-width: 100px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.evo-member:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-5px);
+}
+
+.evo-member-active {
+  border-color: #FFDE00;
+  background: rgba(255, 222, 0, 0.07) !important;
+}
+
+.evo-member-number {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* Image + halo */
+.evo-member-img-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.evo-member-img-wrap img {
+  width: 72px;
+  height: 72px;
+  image-rendering: pixelated;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s;
+}
+
+.evo-member:hover .evo-member-img-wrap img {
+  transform: scale(1.1);
+}
+
+.evo-member-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 222, 0, 0.35), transparent 70%);
+  border-radius: 50%;
+  animation: glowPulse 2s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1);    }
+  50%       { opacity: 1;   transform: scale(1.15); }
+}
+
+.evo-member-name {
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.evo-member-types {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.evo-type-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.evo-member-total {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.72rem;
+}
+
+/* --- Flèche --- */
+.evo-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 0 0.4rem;
+  flex-shrink: 0;
+}
+
+.evo-arrow-line {
+  width: 28px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+}
+
+.evo-arrow-icon {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.9rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .evo-family-chain { gap: 0.1rem; }
+  .evo-member       { min-width: 75px; padding: 0.7rem; }
+  .evo-member-img-wrap, .evo-member-img-wrap img { width: 56px; height: 56px; }
+}
+
+/* TOOLTIPS TYPES ✅ */
+.evo-type-dot {
+  position: relative !important;
+  cursor: pointer !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  flex-shrink: 0;
+}
+
+.evo-type-dot::after {
+  content: attr(data-type-name) !important;
+  position: absolute !important;
+  bottom: 130% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: #2a2a3e !important;
+  color: #fff !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.8) !important;
+  z-index: 9999 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: all 0.25s ease !important;
+  pointer-events: none !important;
+}
+
+.evo-type-dot:hover::after {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(-50%) translateY(-3px) !important;
+}

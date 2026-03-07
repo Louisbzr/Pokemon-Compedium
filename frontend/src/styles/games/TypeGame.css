@@ -1,0 +1,107 @@
+.type-game-display h2 {
+  font-size: 1.8rem;
+  color: #667eea;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.type-grid-uniform {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+  gap: 10px;
+  margin: 20px auto;
+  max-width: 700px;
+}
+
+.type-btn-uniform {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: white;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+  letter-spacing: 0.3px;
+}
+
+.type-btn-uniform:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  filter: brightness(1.1);
+}
+
+.type-btn-uniform.selected {
+  border-color: #4CAF50 !important;
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(76, 175, 80, 0.5);
+}
+
+.type-btn-uniform.validated {
+  border-color: #4CAF50 !important;
+  opacity: 0.85;
+  cursor: default;
+}
+
+.type-btn-uniform.wrong {
+  background-color: #eeeeee !important;
+  color: #bbb !important;
+  border-color: #FF5252 !important;
+  cursor: not-allowed;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+.status-mark {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: white;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  z-index: 2;
+}
+
+.status-mark.wrong { background: #FF5252; }
+.status-mark.valid { background: #4CAF50; }
+
+.validate-btn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+}
+
+.validate-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(76, 175, 80, 0.5);
+}
+
+.validate-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}

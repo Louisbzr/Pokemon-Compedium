@@ -1,0 +1,98 @@
+/* ==============================
+   GLOBAL + RESET
+   ============================== */
+.homepage {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Section header partagé entre toutes les sections */
+.section-header    { text-align: center; margin-bottom: 3rem; }
+.section-header h2 { font-size: 2rem; color: #1a1a2e; margin: 0 0 0.5rem; }
+.section-subtitle  { color: #999; font-size: 0.9rem; }
+
+/* ==============================
+   ANIMATIONS PARTAGÉES
+   ============================== */
+@keyframes floatPkmn {
+  0%, 100% { transform: translateY(0px)   rotate(-3deg); }
+  50%       { transform: translateY(-25px) rotate(3deg);  }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(255,222,0,0.3); }
+  50%       { box-shadow: 0 0 0 8px rgba(255,222,0,0);   }
+}
+
+@keyframes rotatePokeball {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes swayGrass {
+  from { transform: rotate(-8deg); }
+  to   { transform: rotate(8deg);  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1);    }
+  50%       { opacity: 1;   transform: scale(1.15); }
+}
+
+/* ==============================
+   FOOTER
+   ============================== */
+.homepage-footer {
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.footer-pokeball {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.2);
+  margin: 0 auto 1rem;
+  position: relative;
+}
+
+.footer-pokeball::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+.footer-pokeball::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* ==============================
+   RESPONSIVE GLOBAL
+   ============================== */
+@media (max-width: 768px) {
+  .section-header h2 { font-size: 1.5rem; }
+  .section-subtitle  { font-size: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+  .section-header    { margin-bottom: 2rem; }
+  .section-header h2 { font-size: 1.3rem; }
+}

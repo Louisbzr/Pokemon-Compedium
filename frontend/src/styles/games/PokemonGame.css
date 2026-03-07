@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap');
+@import url('./GameMenu.css');
+@import url('./GameHeader.css');
+@import url('./ResultModal.css');
+@import url('./HistoryBar.css');
+
+/* ==============================
+   GLOBAL + RESET (Homepage Theme)
+   ============================== */
+.homepage, .game-content {
+  overflow-x: hidden;
+  background: #f8f9ff;
+}
+
+/* Section header partagé */
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-header h2 { 
+  font-size: 2rem; 
+  color: #1a1a2e; 
+  margin: 0 0 0.5rem;
+  font-family: 'Press Start 2P', cursive;
+}
+.section-subtitle { color: #999; font-size: 0.9rem; }
+
+/* ==============================
+   GAME CONTENT (Pokémon Unifié)
+   ============================== */
+.game-content {
+  background: #f8f9ff;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    0 0 0 3px rgba(255, 220, 0, 0.2);
+  max-width: 90%;
+  width: 100%;
+  min-height: 85vh;
+  height: auto;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+
+/* ==============================
+   ANIMATIONS PARTAGÉES (Pokémon Rétro)
+   ============================== */
+@keyframes floatPkmn {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-25px) rotate(3deg); }
+}
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,220,0,0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(255,220,0,0); }
+}
+@keyframes rotatePokeball { to { transform: rotate(360deg); } }
+@keyframes swayGrass {
+  from { transform: rotate(-8deg); }
+  to { transform: rotate(8deg); }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ==============================
+   GAME DISPLAY
+   ============================== */
+.game-display {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.game-display h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.1rem;
+  color: #CC0000;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+  text-shadow:
+    2px 2px 0 rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(204, 0, 0, 0.2);
+  line-height: 1.6;
+  animation: glowPulse 3s infinite;
+}
+
+/* ==============================
+   POKEMON DISPLAY (Animé)
+   ============================== */
+
+/* Coins décoratifs */
+.pokemon-display::before,
+.pokemon-display::after {
+  content: '◆';
+  position: absolute;
+  color: rgba(255, 220, 0, 0.3);
+  font-size: 1rem;
+  pointer-events: none;
+  animation: swayGrass 2s infinite alternate;
+}
+.pokemon-display::before { top: 12px; left: 16px; }
+.pokemon-display::after { bottom: 12px; right: 16px; }
+
+/* ==============================
+   FOOTER (Pokéball Animée)
+   ============================== */
+.homepage-footer {
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.8rem;
+  position: relative;
+}
+.footer-pokeball {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.2);
+  margin: 0 auto 1rem;
+  position: relative;
+  animation: rotatePokeball 10s linear infinite;
+}
+.footer-pokeball::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.3);
+}
+.footer-pokeball::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* ==============================
+   RESPONSIVE GLOBAL
+   ============================== */
+@media (max-width: 768px) {
+  .section-header h2 { font-size: 1.5rem; }
+  .section-subtitle { font-size: 0.8rem; }
+  .game-content { padding: 20px; }
+}
+@media (max-width: 480px) {
+  .section-header { margin-bottom: 2rem; }
+  .section-header h2 { font-size: 1.3rem; }
+  .pokemon-display { padding: 20px; min-height: 250px; }
+}
+
+
+/* Amélioration ANSWER SECTION pour Input + Submit (Shadow/Description) */
+.answer-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  padding: 25px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(10px);
+}
+
+
+
+/* Input de devinette */
+.guess-input {
+  flex: 1;
+  min-width: 450px;
+  max-width: 400px;
+  padding: 16px 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid rgba(255, 220, 0, 0.4);
+  border-radius: 25px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.guess-input::placeholder {
+  color: rgba(26, 26, 46, 0.5);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.guess-input:focus {
+  border-color: #CC0000;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.15), 0 8px 25px rgba(204, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.guess-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Bouton Valider */
+.submit-button {
+  padding: 20px 30px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #CC0000 0%, #aa0000 100%);
+  border: 3px solid #FFDC00;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 6px 20px rgba(204, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+
+
+
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #666;
+  border-color: #999;
+}
+
+/* États spéciaux pendant loading/jeu */
+.game-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  color: #CC0000;
+  text-shadow: 2px 2px 0 rgba(255, 220, 0, 0.5);
+  animation: glowPulse 1.5s infinite;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .answer-section {
+    flex-direction: column;
+    padding: 20px;
+    gap: 12px;
+  }
+  .guess-input {
+    min-width: 100%;
+    font-size: 1rem;
+  }
+  .submit-button {
+    width: 100%;
+    font-size: 0.75rem;
+    padding: 14px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .answer-section {
+    margin-top: 20px;
+    padding: 15px;
+  }
+}
