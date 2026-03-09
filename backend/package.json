@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "build": "cd .. && npx prisma generate && cd backend",
-    "db:push": "cd .. && npx prisma db push --skip-generate"
+    "build": "npx prisma generate",
+    "db:push": "npx prisma db push"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,9 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "node-fetch": "^2.7.0"
+    "node-fetch": "^2.7.0",
+    "prisma": "^5.14.0",
+    "@prisma/client": "^5.14.0",
+    "@prisma/adapter-pg": "^5.14.0"
   }
 }
