@@ -1,6 +1,8 @@
 const fetch = require('node-fetch');
 
 const pokemonCache = new Map();
+const pLimit = require('p-limit');
+
 
 function extractChainIds(chain) {
   const id = parseInt(chain.species.url.split('/').filter(Boolean).pop());
@@ -132,21 +134,19 @@ async function getAllPokemonWithDetails(limit = 1025, offset = 0) {
   }
 }
 
-async function getRangeOfPokemon(limit = 1025, offset = 0) {
-  const pokemons = [];
-  const promises = [];
-
+async function getRangeOfPokemon(limit = 50, offset = 0) {  
+  const limitConcurrency = pLimit(15); 
+  
   const start = Math.max(1, offset + 1);
   const end = Math.min(1025, offset + limit);
 
+  const promises = [];
   for (let id = start; id <= end; id++) {
-    promises.push(getOnePokemon(id));
+    promises.push(limitConcurrency(() => getOnePokemon(id)));
   }
 
   const results = await Promise.all(promises);
-  const validPokemons = results.filter(p => p !== null);
-
-  return validPokemons;
+  return results.filter(p => p !== null);
 }
 
 module.exports = {
