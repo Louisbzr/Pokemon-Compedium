@@ -42,10 +42,10 @@ function PokemonGame({ language, getPokemonName, allPokemons, onViewChange, init
   const [showMenu, setShowMenu] = useState(!initialGame)
 
   useEffect(() => {
-    if (initialGame && allPokemons.length > 0) {
-      startGame(initialGame);
-    }
-  }, []);
+  if (initialGame && allPokemons.length > 0) {
+    startGame(initialGame);
+  }
+}, [initialGame, allPokemons.length, startGame]);
 
   useEffect(() => {
     if (!showMenu && currentPokemon) {

@@ -1,6 +1,5 @@
-// src/components/common/TypeBadge.jsx
-import React from 'react';
-import { getTypeName, getTypeColor, getTypeDisplayName } from '../../utils/typeIcons';
+
+import { getTypeColor, getTypeDisplayName } from '../../utils/typeIcons';
 import '../../styles/common/TypeBadge.css';
 
 const BALL_BASE_URL = 'https://cdn.jsdelivr.net/gh/msikma/pokesprite@master/items/ball';
@@ -20,7 +19,6 @@ export function getRandomBallUrl() {
 }
 
 export default function TypeBadge({ type, size = 'md', language = 'fr' }) {
-  const englishKey = getTypeName(type);
   const displayName = getTypeDisplayName(type, language);
   const color = getTypeColor(type);
   

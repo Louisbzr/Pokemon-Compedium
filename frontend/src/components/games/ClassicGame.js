@@ -239,13 +239,13 @@ export default function ClassicGame({ allPokemons, language, getPokemonName, onW
   const [suggestions, setSuggestions] = useState([]);
   const [gameState, setGameState] = useState('playing');
   const inputRef = useRef(null);
-
-  const guessedIds = guesses.map(g => g.id);
   
 
   useEffect(() => {
     const query = inputValue.trim().toLowerCase();
     if (!query) { setSuggestions([]); return; }
+
+    const guessedIds = guesses.map(g => g.id); // ← calculé ici
 
     const results = allPokemons
       .filter(p => !guessedIds.includes(p.id))
