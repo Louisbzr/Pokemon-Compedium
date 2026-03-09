@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/views/AuthModal.css';
 import { t } from '../i18n/translations';
+import { API_BASE } from '../utils/config';
 
 export default function AuthModal({ onClose, isOpen, language = 'fr' }) {
   const { login } = useAuth();
@@ -88,7 +89,7 @@ export default function AuthModal({ onClose, isOpen, language = 'fr' }) {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-      const res = await fetch(`http://localhost:5000/auth/${endpoint}`, {
+      const res = await fetch(`${API_BASE}/auth/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -130,7 +131,7 @@ export default function AuthModal({ onClose, isOpen, language = 'fr' }) {
     setErrors({});
 
     try {
-      const res = await fetch('http://localhost:5000/auth/forgot-password', {
+      const res = await fetch(`${API_BASE}/auth/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: resetEmail }),
