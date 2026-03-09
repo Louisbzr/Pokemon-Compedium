@@ -1,5 +1,7 @@
 const fetch = require('node-fetch');
-const pLimit = require('p-limit').default;
+const pLimitModule = require('p-limit');
+const pLimit = pLimitModule.default;
+
 
 const pokemonCache = new Map();
 const speciesCache = new Map();
