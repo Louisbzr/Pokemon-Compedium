@@ -130,6 +130,7 @@ export default function AuthModal({ onClose, isOpen, language = 'fr' }) {
     setIsLoading(true);
     setErrors({});
 
+    
     try {
       const res = await fetch(`${API_BASE}/auth/forgot-password`, {
         method: 'POST',
