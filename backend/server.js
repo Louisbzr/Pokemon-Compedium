@@ -30,6 +30,10 @@ app.use(express.json());
 
 app.use('/auth', authRoutes);
 
+app.get('/ping', (req, res) => {
+  res.json({ status: 'ok', port: PORT });
+});
+
 app.get('/liste', async (req, res) => {
   try {
     const liste = await pokemonService.getPokemonList();
