@@ -4,25 +4,28 @@ const cors = require('cors');
 const pokemonService = require('./services/pokemonService');
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/authMiddleware'); 
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = (process.env.FRONT_ORIGINS || 'http://localhost:3000,https://pokemon-compedium-production.up.railway.app').split(',');
+const allowedOrigins = (process.env.FRONT_ORIGINS || 'http://localhost:3000,https://pokemon-compedium-production.up.railway.app')
+  .split(',');
 
 app.use(cors({
   origin: (origin, callback) => {
-    if(!origin) return callback(null, true);
+    if (!origin) return callback(null, true); 
     if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
       return callback(null, true);
     }
     return callback(new Error(`CORS error: origin ${origin} not allowed`), false);
   },
-  credentials: true,
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  credentials: true
 }));
 
 app.use(express.json());
 
-app.use('/auth', authRoutes);
+app.use('/auth', authRoutes); 
 app.get('/ping', (req, res) => res.json({ status: 'ok', port: PORT }));
 
 app.use(authMiddleware);
@@ -32,6 +35,7 @@ app.get('/liste', async (req, res) => {
     const liste = await pokemonService.getPokemonList();
     res.json(liste);
   } catch (error) {
+    console.error('💥 /liste ERROR:', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
@@ -43,6 +47,7 @@ app.get('/pokemon', async (req, res) => {
     const pokemonWithDetails = await pokemonService.getRangeOfPokemon(limit, offset);
     res.json(pokemonWithDetails);
   } catch (error) {
+    console.error('💥 /pokemon ERROR:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -54,6 +59,7 @@ app.get('/pokemon/:name', async (req, res) => {
     if (!pokemon) return res.status(404).json({ error: 'Pokémon non trouvé' });
     res.json(pokemon);
   } catch (error) {
+    console.error('💥 /pokemon/:name ERROR:', error);
     res.status(500).json({ error: 'Pokémon non trouvé' });
   }
 });
