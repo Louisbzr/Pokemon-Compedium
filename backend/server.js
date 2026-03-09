@@ -15,17 +15,22 @@ const allowedOrigins = (process.env.FRONT_ORIGINS ||
   'http://localhost:3000').split(',');
 
 app.use(cors({
-  origin: function(origin, cb) {
-    if (!origin || allowedOrigins.includes(origin) || origin.match(/\.vercel\.app$/)) {
-      cb(null, true);
-    } else {
-      cb(new Error('CORS blocked'));
+  origin: function(origin, callback) {
+    console.log('CORS origin:', origin);  // Debug logs
+    if (!origin) {
+      return callback(null, true);
     }
+    // Match tous Vercel + localhost
+    if (origin.includes('vercel.app') || origin.includes('localhost')) {
+      console.log('✅ CORS OK:', origin);
+      return callback(null, true);
+    }
+    console.log('❌ CORS BLOCK:', origin);
+    return callback(new Error('CORS blocked'));
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  optionsSuccessStatus: 204  
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true
 }));
 
 app.use(express.json());  
