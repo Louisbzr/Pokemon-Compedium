@@ -12,8 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 // --- CORS dynamique et stable ---
 const allowedOrigins = (process.env.FRONT_ORIGINS || 
-  'http://localhost:3000,https://pokemon-compedium-production.up.railway.app')
-  .split(',');
+  'http://localhost:3000').split(',');
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -21,29 +20,17 @@ app.use(cors({
     if (allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
       return callback(null, true);
     }
+    console.error(`CORS blocked: ${origin}`);  // Log utile
     return callback(new Error(`CORS error: origin ${origin} not allowed`), false);
   },
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   credentials: true
 }));
 
-// --- Middleware OPTIONS global pour preflight ---
-app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return res.sendStatus(200);
-  }
-  next();
-});
 app.use(express.json());
 
-// --- Manifest public (PWA) ---
-app.use('/manifest.json', express.static(path.join(__dirname, 'public/manifest.json')));
-
 // --- Routes publiques ---
-app.get('/ping', (req, res) => res.json({ status: 'ok', port: PORT }));
+app.get('/ping', (req, res) => res.json({ status: 'ok', port: PORT, origins: allowedOrigins }));
 
 app.get('/liste', async (req, res) => {
   try {
