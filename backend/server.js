@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
+
 const pokemonService = require('./services/pokemonService');
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/authMiddleware'); 
@@ -8,13 +10,15 @@ const authMiddleware = require('./middleware/authMiddleware');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = (process.env.FRONT_ORIGINS || 'http://localhost:3000,https://pokemon-compedium-production.up.railway.app')
+// --- CORS dynamique et stable ---
+const allowedOrigins = (process.env.FRONT_ORIGINS || 
+  'http://localhost:3000,https://pokemon-compedium-production.up.railway.app')
   .split(',');
 
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true); 
-    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+    if (allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
       return callback(null, true);
     }
     return callback(new Error(`CORS error: origin ${origin} not allowed`), false);
@@ -25,10 +29,11 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use('/auth', authRoutes); 
-app.get('/ping', (req, res) => res.json({ status: 'ok', port: PORT }));
+// --- Manifest public (PWA) ---
+app.use('/manifest.json', express.static(path.join(__dirname, 'public/manifest.json')));
 
-app.use(authMiddleware);
+// --- Routes publiques ---
+app.get('/ping', (req, res) => res.json({ status: 'ok', port: PORT }));
 
 app.get('/liste', async (req, res) => {
   try {
@@ -54,8 +59,7 @@ app.get('/pokemon', async (req, res) => {
 
 app.get('/pokemon/:name', async (req, res) => {
   try {
-    const pokemonName = req.params.name;
-    const pokemon = await pokemonService.getOnePokemon(pokemonName);
+    const pokemon = await pokemonService.getOnePokemon(req.params.name);
     if (!pokemon) return res.status(404).json({ error: 'Pokémon non trouvé' });
     res.json(pokemon);
   } catch (error) {
@@ -64,6 +68,18 @@ app.get('/pokemon/:name', async (req, res) => {
   }
 });
 
+// --- Routes auth publiques ---
+app.use('/auth', authRoutes);
+
+// --- Middleware auth pour toutes les routes suivantes ---
+app.use(authMiddleware);
+
+// Exemple route protégée
+app.get('/private-data', (req, res) => {
+  res.json({ secret: '💎 Données sensibles' });
+});
+
+// --- Lancement serveur ---
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
   console.log('Allowed Origins:', allowedOrigins);
