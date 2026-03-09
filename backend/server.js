@@ -7,18 +7,15 @@ const authMiddleware = require('./middlewares/authMiddleware');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://pokemon-compedium-production.up.railway.app'
-];
+const allowedOrigins = process.env.FRONT_ORIGINS.split(',');
 
 app.use(cors({
-  origin: function(origin, callback){
+  origin: function(origin, callback) {
     if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){
-      return callback(new Error(`CORS error: origin ${origin} not allowed`), false);
+    if(allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+      return callback(null, true);
     }
-    return callback(null, true);
+    return callback(new Error(`CORS error: origin ${origin} not allowed`), false);
   },
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   credentials: true
