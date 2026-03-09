@@ -69,7 +69,7 @@ export default function AuthModal({ onClose, isOpen, language = 'fr' }) {
 
     setErrors(newErrors);
       return Object.keys(newErrors).length === 0;
-    }, [formData, mode]);
+    }, [formData, mode, language]);
 
   const handleAuthSubmit = async (e) => {
     e.preventDefault();

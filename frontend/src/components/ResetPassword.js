@@ -60,6 +60,19 @@ const ResetPassword = ({
         password: newPassword
       });
 
+      if (response.status === 200) {
+        setMessageType('success');
+        setMessage(t('resetPassword.successMessage', language));
+
+        setTimeout(() => {
+          onLogin?.();
+          onClose?.();
+        }, 1500);
+      } else {
+        setMessageType('error');
+        setMessage(t('resetPassword.resetError', language));
+      }
+
       setMessageType('success');
       setMessage(t('resetPassword.successMessage', language));
       
