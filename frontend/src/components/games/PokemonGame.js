@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { t } from '../../i18n/translations';
 import GameMenu from './GameMenu'
 import GameHeader from './GameHeader'
 import ResultModal from './ResultModal'
@@ -7,7 +8,6 @@ import ShadowGame from './ShadowGame'
 import DescriptionGame from './DescriptionGame'
 import TypeGame from './TypeGame'
 import HangmanGame from './HangmanGame'
-import { t } from '../../i18n/translations';
 import ClassicGame from './ClassicGame'
 import PokemonMemory from './PokemonMemory'
 import HigherLower from './HigherLower'
@@ -45,7 +45,7 @@ function PokemonGame({ language, getPokemonName, allPokemons, onViewChange, init
   if (initialGame && allPokemons.length > 0) {
     startGame(initialGame);
   }
-}, [initialGame, allPokemons.length, startGame]);
+}, [initialGame, allPokemons.length]);
 
   useEffect(() => {
     if (!showMenu && currentPokemon) {
