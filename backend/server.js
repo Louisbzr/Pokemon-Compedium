@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
   'http://localhost:3000',              
-  'https://pokemon-compedium.vercel.app' 
+  'https://pokemon-compedium-production.up.railway.app' 
 ];
 
 app.use(cors({
