@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 const pokemonCache = new Map();
-const pLimit = require('p-limit');
+const { pLimit } = require('p-limit');
 
 
 function extractChainIds(chain) {
