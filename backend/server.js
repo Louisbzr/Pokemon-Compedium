@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const pokemonService = require('./services/pokemonService');
 const authRoutes = require('./routes/auth');
-const authMiddleware = require('./middlewares/authMiddleware'); 
+const authMiddleware = require('./middleware/authMiddleware'); 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
