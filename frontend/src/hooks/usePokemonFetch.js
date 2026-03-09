@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { getStatValue } from '../utils/pokemonUtils';
 
+const API_BASE = import.meta.env.VITE_API_URL || 
+  (import.meta.env.DEV ? 'http://localhost:5000' : 'https://pokemon-compedium.onrender.com');
+
 const GENERATIONS = {
   1: { start: 1, end: 151 },
   2: { start: 152, end: 251 },
@@ -29,7 +32,7 @@ export function usePokemonFetch(language = 'fr') {
       setLoadingProgress(0);
 
       if (genNumber === 'all') {
-        const res = await fetch('http://localhost:5000/pokemon?limit=1025&offset=0');
+        const res = await fetch(`${API_BASE}/pokemon?limit=1025&offset=0`);
         const data = await res.json();
         const enriched = data.map(p => ({
           ...p,
@@ -38,11 +41,7 @@ export function usePokemonFetch(language = 'fr') {
         setPokemons(enriched);
       } else {
         const gen = GENERATIONS[genNumber];
-        const res = await fetch(
-          `http://localhost:5000/pokemon?limit=${
-            gen.end - gen.start + 1
-          }&offset=${gen.start - 1}`
-        );
+        const res = await fetch(`${API_BASE}/pokemon?limit=${gen.end-gen.start+1}&offset=${gen.start-1}`);
         const data = await res.json();
         const enriched = data.map(p => ({
           ...p,
