@@ -1,16 +1,12 @@
 const fetch = require('node-fetch');
-const pLimitModule = require('p-limit');
-const pLimit = pLimitModule.default;
+const pLimit = require('p-limit');
 
 
 const pokemonCache = new Map();
 const speciesCache = new Map();
 
-const limitConcurrency = pLimit(15); // limite de requêtes simultanées
+const limitConcurrency = pLimit(15); 
 
-// -----------------------------
-// Extraction des IDs d'évolution
-// -----------------------------
 function extractChainIds(chain) {
   const id = parseInt(chain.species.url.split('/').filter(Boolean).pop());
   const ids = [id];
@@ -24,9 +20,6 @@ function extractChainIds(chain) {
   return ids;
 }
 
-// -----------------------------
-// Species avec cache
-// -----------------------------
 async function getPokemonSpecies(id) {
 
   if (speciesCache.has(id)) {
@@ -70,9 +63,6 @@ async function getPokemonSpecies(id) {
   }
 }
 
-// -----------------------------
-// Evolution stage
-// -----------------------------
 async function getEvolutionStage(isBaby, evolvesFromSpeciesUrl) {
 
   if (isBaby) return 0;
@@ -91,9 +81,6 @@ async function getEvolutionStage(isBaby, evolvesFromSpeciesUrl) {
   }
 }
 
-// -----------------------------
-// Pokémon unique
-// -----------------------------
 async function getOnePokemon(id) {
 
   if (pokemonCache.has(id)) {
@@ -157,9 +144,6 @@ async function getOnePokemon(id) {
   }
 }
 
-// -----------------------------
-// Liste simple
-// -----------------------------
 async function getPokemonList(limit = 20, offset = 0) {
 
   const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
@@ -170,9 +154,6 @@ async function getPokemonList(limit = 20, offset = 0) {
   return data.results;
 }
 
-// -----------------------------
-// Range optimisé
-// -----------------------------
 async function getRangeOfPokemon(limit = 50, offset = 0) {
 
   const start = Math.max(1, offset + 1);
@@ -193,20 +174,20 @@ async function getRangeOfPokemon(limit = 50, offset = 0) {
   return results.filter(Boolean);
 }
 
-// -----------------------------
-// Chargement complet optimisé
-// -----------------------------
 async function getAllPokemonWithDetails() {
 
-  const promises = [];
+  const listUrl = "https://pokeapi.co/api/v2/pokemon?limit=1025";
 
-  for (let id = 1; id <= 1025; id++) {
+  const response = await fetch(listUrl);
+  const data = await response.json();
 
-    promises.push(
-      limitConcurrency(() => getOnePokemon(id))
-    );
+  const promises = data.results.map((pokemon) => {
 
-  }
+    const id = pokemon.url.split('/').filter(Boolean).pop();
+
+    return limitConcurrency(() => getOnePokemon(id));
+
+  });
 
   const results = await Promise.all(promises);
 
