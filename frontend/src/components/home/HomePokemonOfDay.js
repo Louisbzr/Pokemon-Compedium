@@ -1,4 +1,3 @@
-// src/components/home/HomePokemonOfDay.jsx (section types corrigée)
 import React, { useState } from 'react';
 import '../../styles/home/HomePokemonOfDay.css';
 import FicheStrategique from './FicheStrategique';

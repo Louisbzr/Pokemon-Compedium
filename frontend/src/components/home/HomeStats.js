@@ -5,18 +5,13 @@ import { t } from '../../i18n/translations';
 
 const FEATURES_COUNT = 6;
 
-
-// ============================================================
-// Fond de sprites aléatoires
-// ============================================================
 function BackgroundSprites({ allPokemons }) {
   const [sprites, setSprites] = useState([]);
 
   const SPAWN_INTERVAL = 2000;
   const LIFE_TIME = 28000;
 
-  // 6 lignes verticales
-  const LANES = [15, 30, 45, 60, 75, 85]; // % hauteur
+  const LANES = [15, 30, 45, 60, 75, 85]; 
 
   useEffect(() => {
     if (!allPokemons?.length) return;
@@ -24,13 +19,10 @@ function BackgroundSprites({ allPokemons }) {
     const spawnSprite = () => {
       setSprites(prev => {
 
-        // lignes déjà utilisées
         const usedLanes = prev.map(s => s.lane);
 
-        // lignes dispo
         const availableLanes = LANES.filter(l => !usedLanes.includes(l));
 
-        // si toutes prises, on autorise quand même
         const lane =
           availableLanes.length > 0
             ? availableLanes[Math.floor(Math.random() * availableLanes.length)]
@@ -45,7 +37,6 @@ function BackgroundSprites({ allPokemons }) {
           lane
         };
 
-        // suppression automatique
         setTimeout(() => {
           setSprites(current =>
             current.filter(s => s.id !== newSprite.id)
@@ -75,9 +66,7 @@ function BackgroundSprites({ allPokemons }) {
     </div>
   );
 }
-// ============================================================
-// Compteur animé standard
-// ============================================================
+
 function StatCounter({ icon, label, value, visible }) {
   const [displayed, setDisplayed] = useState(0);
 
@@ -102,17 +91,12 @@ function StatCounter({ icon, label, value, visible }) {
   );
 }
 
-
-// ============================================================
-// Pokémon défilant
-// ============================================================
 function ScrollingPokemon({ allPokemons, visible, lang }) {
   const [displayed, setDisplayed] = useState(0);
   const [current, setCurrent] = useState(null);
   const [next, setNext] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Compteur animé
   useEffect(() => {
     if (!visible || !allPokemons?.length) return;
 
@@ -133,7 +117,6 @@ function ScrollingPokemon({ allPokemons, visible, lang }) {
     return () => clearInterval(iv);
   }, [visible, allPokemons]);
 
-  // Crossfade sprite
   useEffect(() => {
     if (!allPokemons?.length) return;
 
@@ -151,10 +134,9 @@ function ScrollingPokemon({ allPokemons, visible, lang }) {
       setIsTransitioning(true);
 
       setTimeout(() => {
-        setCurrent(prev => random);   // update sans casser le DOM
+        setCurrent(prev => random);  
         setIsTransitioning(false);
 
-        // 👇 IMPORTANT : on supprime next APRÈS le repaint
         requestAnimationFrame(() => {
           setNext(null);
         });
@@ -200,10 +182,6 @@ function ScrollingPokemon({ allPokemons, visible, lang }) {
   );
 }
 
-
-// ============================================================
-// Légendaire aléatoire
-// ============================================================
 function LegendaryCounter({ allPokemons, visible, lang }) {
   const [displayed, setDisplayed] = useState(0);
   const [current, setCurrent] = useState(null);
@@ -222,7 +200,6 @@ function LegendaryCounter({ allPokemons, visible, lang }) {
   const legendaries =
     allPokemons?.filter(p => LEGENDARY_IDS.includes(p.id)) || [];
 
-  // Compteur
   useEffect(() => {
     if (!visible || !legendaries.length) return;
     const value = legendaries.length;
@@ -240,11 +217,9 @@ function LegendaryCounter({ allPokemons, visible, lang }) {
     return () => clearInterval(iv);
   }, [visible, legendaries.length]);
 
-  // Crossfade
   useEffect(() => {
     if (!legendaries.length) return;
 
-    // initial
     setCurrent(
       legendaries[Math.floor(Math.random() * legendaries.length)]
     );
@@ -260,7 +235,7 @@ function LegendaryCounter({ allPokemons, visible, lang }) {
         setCurrent(random);
         setNext(null);
         setIsTransitioning(false);
-      }, 600); // durée transition
+      }, 600);
     }, 10000);
 
     return () => clearInterval(interval);
@@ -297,10 +272,6 @@ function LegendaryCounter({ allPokemons, visible, lang }) {
   );
 }
 
-
-// ============================================================
-// COMPOSANT PRINCIPAL
-// ============================================================
 export default function HomeStats({ allPokemons, language }) {
   const [visible, setVisible] = useState(false);
 

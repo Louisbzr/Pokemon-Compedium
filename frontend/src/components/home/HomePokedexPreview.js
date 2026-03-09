@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../../styles/home/HomePokedexPreview.css';
 import { getTypeName, getTypeColor } from '../../utils/typeIcons';
 import { t } from '../../i18n/translations';
-import PokemonFullPage from '../views/PokemonFullPage'; // adapte le chemin si besoin
+import PokemonFullPage from '../views/PokemonFullPage';  
 
 export default function HomePokedexPreview({ previewPokemons, allPokemons, language, getPokemonName, onViewChange }) {
   const pokemonCount = allPokemons?.length || 0;
@@ -22,7 +22,7 @@ export default function HomePokedexPreview({ previewPokemons, allPokemons, langu
           <div
             key={pkmn.id}
             className="preview-card"
-            onClick={() => setFullPagePokemon(pkmn)} // ← changé
+            onClick={() => setFullPagePokemon(pkmn)} 
             title={getPokemonName(pkmn, language)}
           >
             <img src={pkmn.sprite} alt={pkmn.name} loading="lazy" />

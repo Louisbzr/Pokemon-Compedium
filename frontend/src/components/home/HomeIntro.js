@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/home/HomeIntro.css';
 import professorOak from '../../assets/prof-oak.png';
 
-const INTRO_KEY = 'pokeWorldIntroSeen';  // Clé unique localStorage
+const INTRO_KEY = 'pokeWorldIntroSeen';  
 const OAK_SPEECH = "Bienvenue dans le monde des Pokémon ! Ce vaste monde est peuplé de créatures extraordinaires. Certains les combattent, d'autres les élèvent, moi, je les étudie. Aujourd'hui, c'est votre tour de devenir un grand Dresseur !";
 
 export default function HomeIntro({ onDone }) {
-  const [phase, setPhase] = useState('press'); // 'press' | 'oak' | 'done'
+  const [phase, setPhase] = useState('press'); 
   const [oakText, setOakText] = useState('');
 
-  // ✅ VÉRIFIE localStorage au montage
   useEffect(() => {
     const introSeen = localStorage.getItem(INTRO_KEY);
     if (introSeen) {
-      // Intro déjà vue → skip immédiat
       setTimeout(onDone, 100);
       return;
     }
@@ -36,7 +34,6 @@ export default function HomeIntro({ onDone }) {
       setPhase('oak');
     } else if (phase === 'oak' && oakText.length >= OAK_SPEECH.length) {
       setPhase('done');
-      // ✅ MARQUE intro comme vue
       localStorage.setItem(INTRO_KEY, 'true');
       setTimeout(onDone, 600);
     }

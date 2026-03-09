@@ -1,13 +1,17 @@
+require('dotenv').config();  
 const express = require('express');
 const cors = require('cors');
 const pokemonService = require('./services/pokemonService');
+const authRoutes = require('./routes/auth');  
 
 const app = express();
 const PORT = 5000;
 
 app.use(cors());
+app.use(express.json()); 
 
-// GET /liste
+app.use('/auth', authRoutes); 
+
 app.get('/liste', async (req, res) => {
   try {
     const liste = await pokemonService.getPokemonList();
@@ -17,17 +21,13 @@ app.get('/liste', async (req, res) => {
   }
 });
 
-// GET /pokemon (avec limit et offset corrects)
 app.get('/pokemon', async function (req, res) {
   try {
     const limit = parseInt(req.query.limit) || 1025;
     const offset = parseInt(req.query.offset) || 0;
 
-    console.log(`📦 /pokemon?limit=${limit}&offset=${offset}`);
-
     const pokemonWithDetails = await pokemonService.getRangeOfPokemon(limit, offset);
 
-    console.log(`✅ OK: ${pokemonWithDetails.length} pokémons`);
     res.json(pokemonWithDetails);
   } catch (error) {
     console.error('💥 Backend ERROR:', error.message);
@@ -35,7 +35,6 @@ app.get('/pokemon', async function (req, res) {
   }
 });
 
-// GET /pokemon/:name
 app.get('/pokemon/:name', async function (req, res) {
   try {
     const pokemonName = req.params.name;
@@ -50,7 +49,6 @@ app.get('/pokemon/:name', async function (req, res) {
   }
 });
 
-// Start server
 app.listen(PORT, function () {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });

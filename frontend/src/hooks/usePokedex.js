@@ -74,10 +74,9 @@ export function usePokedex() {
     })
 
     const searched = searchTerm.trim() === '' ? filtered : filtered.filter(pokemon => {
-      // Recherche MULTILINGUE
       const names = pokemon.names || [];
       const allNames = names.map(n => n.name.toLowerCase());
-      allNames.push(pokemon.name.toLowerCase()); // Fallback anglais
+      allNames.push(pokemon.name.toLowerCase());
       
       return allNames.some(name => name.includes(searchTerm.toLowerCase()));
     });

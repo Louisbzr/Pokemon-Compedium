@@ -4,7 +4,6 @@ import { t } from '../../i18n/translations';
 function HangmanGame({ currentPokemon, gameState, hangmanState, onSubmitLetter, language }) {
   const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   
-  // Le jeu est gagné si le mot a été entièrement deviné
   const isWon = hangmanState.word
     .split('')
     .every(char => hangmanState.guessed.includes(char));

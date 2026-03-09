@@ -1,6 +1,3 @@
-// ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-// HOOK RESPONSIVE TABS INTÉGRÉ (pas de fichier externe)
-// ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 function useResponsiveTabs(tabs) {
   const [hiddenTabs, setHiddenTabs] = useState([]);
   const [burgerOpen, setBurgerOpen] = useState(false);
@@ -19,8 +16,8 @@ function useResponsiveTabs(tabs) {
     tabs.forEach((tab, index) => {
       const tabElement = tabsContainer.children[index];
       if (tabElement) {
-        const tabWidth = tabElement.offsetWidth + 4; // + gap
-        if (totalWidth + tabWidth <= containerWidth - 80) { // 80px pour burger
+        const tabWidth = tabElement.offsetWidth + 4; 
+        if (totalWidth + tabWidth <= containerWidth - 80) { 
           visibleTabs.push(tab);
           totalWidth += tabWidth;
         } else {
@@ -33,7 +30,7 @@ function useResponsiveTabs(tabs) {
   }, [tabs]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(updateHiddenTabs, 100); // Délai pour render DOM
+    const timeoutId = setTimeout(updateHiddenTabs, 100);
     
     const resizeObserver = new ResizeObserver(updateHiddenTabs);
     if (wrapperRef.current) {

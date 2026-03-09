@@ -9,14 +9,10 @@ import TypeGame from './TypeGame'
 import HangmanGame from './HangmanGame'
 import { t } from '../../i18n/translations';
 import ClassicGame from './ClassicGame'
-
-// Nouveaux jeux
 import PokemonMemory from './PokemonMemory'
 import HigherLower from './HigherLower'
 import TypeChallenge from './TypeChallenge'
-
 import '../../styles/games/PokemonGame.css';
-// Ajout des jeux infinis avec '99' pour éviter les erreurs NaN
 const MAX_ERRORS = { 
   shadow: 3, 
   description: 3, 
@@ -80,7 +76,6 @@ function PokemonGame({ language, getPokemonName, allPokemons, onViewChange, init
         const speciesResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`)
         const speciesData = await speciesResponse.json()
         
-        // 👇 NOUVEAU : stocke TOUTES les langues
         const descriptions = {};
         speciesData.flavor_text_entries.forEach(entry => {
           descriptions[entry.language.name] = entry.flavor_text.replace(/\f/g, ' ');

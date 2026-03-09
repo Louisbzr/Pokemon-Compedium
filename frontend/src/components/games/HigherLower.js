@@ -9,12 +9,10 @@ export default function HigherLower({ allPokemons, onWin, onLose, language }) {
   const [score, setScore] = useState(0);
   const [gameState, setGameState] = useState('playing');
 
-  // Fonction pour obtenir un Pokémon au hasard
   const getRandomPokemon = useCallback(() => {
     return allPokemons[Math.floor(Math.random() * allPokemons.length)];
   }, [allPokemons]);
 
-  // Fonction d'initialisation du jeu
   const initGame = useCallback(() => {
     if (!allPokemons || allPokemons.length < 2) return;
 

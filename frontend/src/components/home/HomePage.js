@@ -6,6 +6,7 @@ import HomeStats from './HomeStats';
 import HomePokemonOfDay from './HomePokemonOfDay';
 import HomeFeatures from './HomeFeatures';
 import HomePokedexPreview from './HomePokedexPreview';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function HomePage({ 
   allPokemons, 
@@ -16,7 +17,8 @@ export default function HomePage({
   selectedLanguage, 
   onLanguageChange 
 }) {
-  const [showIntro, setShowIntro] = useState(true);  // ✅ Contrôlé par localStorage
+  const { user } = useAuth();
+  const [showIntro, setShowIntro] = useState(true);  
   const [heroPokemons, setHeroPokemons] = useState([]);
   const [pokemonOfDay, setPokemonOfDay] = useState(null);
   const [previewPokemons, setPreviewPokemons] = useState([]);
@@ -33,19 +35,11 @@ export default function HomePage({
     setPreviewPokemons([...allPokemons].sort(() => Math.random() - 0.5).slice(0, 18));
   }, [allPokemons, dailySeed]);
 
-  // ✅ SKIP INTRO si localStorage = true
-  useEffect(() => {
-    const introSeen = localStorage.getItem('pokeWorldIntroSeen');
-    if (introSeen === 'true') {
-      setShowIntro(false);
-    }
-  }, []);
 
   const handleIntroDone = () => {
     setShowIntro(false);
   };
 
-  // ✅ RENDU CONDITIONNEL — clé du fix !
   if (showIntro) {
     return <HomeIntro onDone={handleIntroDone} />;
   }
@@ -59,6 +53,7 @@ export default function HomePage({
         currentView={currentView}
         selectedLanguage={selectedLanguage}
         onLanguageChange={onLanguageChange}
+        user={user}
       />
       <HomeStats allPokemons={allPokemons} language={language} />
       <HomePokemonOfDay

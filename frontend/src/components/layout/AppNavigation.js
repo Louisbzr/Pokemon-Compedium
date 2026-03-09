@@ -1,7 +1,6 @@
-// src/components/layout/AppNavigation.jsx
 function AppNavigation({ currentView, onViewChange }) {
   const tabs = [
-    { id: 'home',    label: '🏠 Accueil' },      // 👈 Ajouté en premier
+    { id: 'home',    label: '🏠 Accueil' },     
     { id: 'pokedex', label: '📋 Pokédex' },
     { id: 'games',   label: '🎮 Mini-Jeux' },
     { id: 'tactics', label: '⚔️ Tactics (Nouveau)' },

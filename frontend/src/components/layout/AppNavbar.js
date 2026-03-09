@@ -7,11 +7,15 @@ export default function AppNavbar({
   onViewChange, 
   language, 
   onLanguageChange, 
-  menuOpen,        // ← PROP (pas state local)
-  onMenuToggle 
+  menuOpen,        
+  onMenuToggle,
+  user,           
+  onLogout,
+  onAuthToggle,
 }) {
+
+
   const [scrolled, setScrolled] = useState(false);
-  // SUPPRIME CETTE LIGNE : const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLangChange = (e) => onLanguageChange(e.target.value);
 
@@ -23,7 +27,7 @@ export default function AppNavbar({
 
   const handleViewChange = (view) => {
     onViewChange(view);
-    onMenuToggle(false); // Ferme le menu
+    onMenuToggle(false);
   };
 
   return (
@@ -73,6 +77,21 @@ export default function AppNavbar({
             <option value="ko">한국어</option>
             <option value="zh-Hans">中文</option>
           </select>
+          <div className="auth-section">
+            {user ? (
+              <div className="user-info">
+                <span className="username">@{user.username}</span>
+                <button className="logout-btn" onClick={onLogout}>❌</button>
+              </div>
+            ) : (
+              <button 
+                className="login-btn"
+                onClick={() => {onAuthToggle(true);}} 
+              >
+                {t('authModal.loginTitle', language)}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </header>

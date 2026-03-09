@@ -3,9 +3,6 @@ import '../../styles/home/FicheStrategique.css';
 import { getTypeName, getTypeColor, getTypeIcon } from '../../utils/typeIcons';
 import { t } from '../../i18n/translations';
 
-// ============================================================
-// TYPE CHART
-// ============================================================
 const TYPE_CHART = {
   fire:     { strong: ['grass','bug','ice','steel'],           weak: ['water','rock','fire','dragon'] },
   water:    { strong: ['fire','ground','rock'],                weak: ['grass','electric','water'] },
@@ -32,9 +29,6 @@ const TYPE_IMMUNITIES = {
   flying: ['ground'], dark: ['psychic'], steel: ['poison'], fairy: ['dragon'],
 };
 
-// ============================================================
-// RÔLES
-// ============================================================
 const ROLES = {
   attack:  { labelKey: 'roleAttack',   icon: '⚔️', color: '#F08030', evKey: 'ATK / Vit.',    natureKey: 'natureJovial',   itemKey: 'itemCeinture' },
   spAtk:   { labelKey: 'roleSpAtk',    icon: '✨', color: '#7038F8', evKey: 'Atk.Sp / Vit.', natureKey: 'natureModeste',  itemKey: 'itemLunette'  },
@@ -52,9 +46,6 @@ const getTier = (ts) => {
   return              { label: 'NU',   color: '#78C850', descKey: 'tierNUDesc'   };
 };
 
-// ============================================================
-// STATS
-// ============================================================
 function getStat(pokemon, key) {
   if (!pokemon) return 0;
   if (typeof pokemon[key] === 'number' && pokemon[key] > 0) return pokemon[key];
@@ -111,9 +102,6 @@ function analyzeTypes(pokemonTypes) {
   return { weaknesses, resistances, immunities };
 }
 
-// ============================================================
-// COMPOSANT PRINCIPAL
-// ============================================================
 export default function FicheStrategique({ pokemon, getPokemonName, language }) {
   if (!pokemon) return null;
 

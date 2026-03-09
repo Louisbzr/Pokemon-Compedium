@@ -8,19 +8,16 @@ export function useGameLogic(allPokemons, language, getPokemonName) {
   const MAX_ERRORS = { shadow: 3, description: 3, type: 3, hangman: 6 };
 
   const startGame = useCallback(async (mode) => {
-    // Logique commune de démarrage
     return new Promise((resolve) => {
       const randomIndex = Math.floor(Math.random() * allPokemons.length);
       const pokemon = allPokemons[randomIndex];
-      // ... préparation pokemon
       resolve(pokemon);
     });
   }, [allPokemons]);
 
   const handleWin = useCallback(() => {
     setGameState('won');
-    setScore(s => s + 80); // points par défaut
-    // Ajout à l'historique
+    setScore(s => s + 80);
   }, []);
 
   const handleLose = useCallback(() => {

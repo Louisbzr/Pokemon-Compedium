@@ -36,7 +36,6 @@ export function usePokemonFetch(language = 'fr') {
           totalStats: p.stats.reduce((s, st) => s + st.base_stat, 0)
         }));
         setPokemons(enriched);
-        console.log(`✅ Loaded ${enriched.length} Pokémon (all)`);
       } else {
         const gen = GENERATIONS[genNumber];
         const res = await fetch(
@@ -63,7 +62,6 @@ export function usePokemonFetch(language = 'fr') {
     fetchPokemonByGeneration(selectedGeneration || 'all');
   }, [selectedGeneration]);
 
-  // Filtrage
   const filtered = Array.isArray(pokemons)
     ? pokemons.filter(p => {
         const typeMatch =
@@ -75,19 +73,17 @@ export function usePokemonFetch(language = 'fr') {
       })
     : [];
 
-  // RECHERCHE MULTILINGUE
   const searched =
     searchTerm.trim() === ''
       ? filtered
       : filtered.filter(p => {
           const allNames = (p.names || []).map(n => n.name.toLowerCase());
-          allNames.push(p.name.toLowerCase()); // Fallback anglais
+          allNames.push(p.name.toLowerCase());
           return allNames.some(name =>
             name.includes(searchTerm.toLowerCase())
           );
         });
 
-  // TRI MULTILINGUE
   const sortedPokemons = [...searched].sort((a, b) => {
     if (sortBy === 'id') return a.id - b.id;
 

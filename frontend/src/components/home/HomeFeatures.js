@@ -79,7 +79,7 @@ export default function HomeFeatures({ onViewChange, language }) {
             {/* Icône sprite Pokémon */}
             <img 
               src={feature.icon}
-              alt={t(feature.titleKey, language)}  // Accessibilité
+              alt={t(feature.titleKey, language)} 
               className="feature-icon-img"
               style={{width: '56px', height: '56px', objectFit: 'contain'}}
               loading="lazy"

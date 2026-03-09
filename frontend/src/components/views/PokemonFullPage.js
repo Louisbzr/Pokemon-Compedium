@@ -1,11 +1,10 @@
 import '../../styles/views/PokemonFullPage.css';
 import { useState, useEffect, useRef } from 'react';
 import { getTypeColor, getTypeDisplayName  } from '../../utils/typeIcons';
-import { t } from '../../i18n/translations'; // ← ajout
+import { t } from '../../i18n/translations'; 
 
 const STAT_MAX = { hp: 255, attack: 190, defense: 230, 'special-attack': 194, 'special-defense': 230, speed: 200 };
 
-// label passé en prop (traduit depuis le parent)
 function StatBar({ name, base_stat, effort, label }) {
   const max = STAT_MAX[name] || 255;
   const pct = Math.min((base_stat / max) * 100, 100);
@@ -47,7 +46,6 @@ function extractChainIds(chain) {
   return ids;
 }
 
-// language passé en paramètre pour éviter le conflit avec t() importé
 function formatEvolutionDetails(details, language) {
   if (!details || details.length === 0) return null;
   const d = details[0];
@@ -75,7 +73,6 @@ function formatEvolutionDetails(details, language) {
 }
 
 export default function PokemonFullPage({ pokemonId, language = 'fr', allPokemons = [], onClose, onEvoClick }) {
-  // TABS : key = valeur état, label = traduit
   const TABS = [
     { key: 'stats',      label: t('fp.tab.stats', language) },
     { key: 'capacités',  label: t('fp.tab.moves', language) },
@@ -603,13 +600,13 @@ export default function PokemonFullPage({ pokemonId, language = 'fr', allPokemon
                   const name = evoInfo?.name || node.species.name;
                   const sprite = evoInfo?.sprite || null;
                   const evoCond = formatEvolutionDetails(node.details, language);
-                  const isCurrent = id === pokemon.id; // ← Pokémon actuellement affiché
+                  const isCurrent = id === pokemon.id; 
                   return (
                     <div key={i} className="fp-evo-node" style={{ marginLeft: `${node.depth * 10}px`, marginTop: '20px' }}>
                       {evoCond && <div className="fp-evo-arrow">↓ {evoCond}</div>}
                       <div
                         className={`fp-evo-pokemon ${!isCurrent ? 'fp-evo-clickable' : ''}`}
-                        onClick={() => !isCurrent && onEvoClick?.(id)} // ← ajout
+                        onClick={() => !isCurrent && onEvoClick?.(id)} 
                       >
                         {sprite && <img src={sprite} alt={name} />}
                         <span>{name}</span>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/games/DescriptionGame.css';
 import { t } from '../../i18n/translations';
 
-// Si tu veux lire PokéAPI dans DescriptionGame
 function DescriptionGame({ currentPokemon, descriptionRevealLevel, language }) {
   const [apiDescription, setApiDescription] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -50,7 +49,6 @@ function DescriptionGame({ currentPokemon, descriptionRevealLevel, language }) {
   }, [currentPokemon?.id, language]);
 
   const renderDescription = () => {
-    // Si l’API fonctionne, utilise la description PokéAPI
     if (apiDescription) {
       const words = apiDescription.split(' ');
       const percentage = Math.min(1, descriptionRevealLevel * 0.35);
@@ -58,7 +56,6 @@ function DescriptionGame({ currentPokemon, descriptionRevealLevel, language }) {
       return words.slice(0, limit).join(' ') + (percentage < 1 ? '...' : '');
     }
 
-    // Sinon, tu peux garder ton ancienne logique (descriptions, description, t(...))
     const localizedDesc =
       currentPokemon?.descriptions?.[language] ||
       currentPokemon?.description ||

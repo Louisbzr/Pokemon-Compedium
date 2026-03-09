@@ -22,7 +22,7 @@ const LANGUAGES = [
 ];
 
 
-export default function HomeHero({ heroPokemons, onViewChange, currentView, selectedLanguage, onLanguageChange }) {
+export default function HomeHero({ heroPokemons, onViewChange, currentView, selectedLanguage, onLanguageChange, user }) {
   return (
     <section className="hero-section">
 
@@ -46,7 +46,12 @@ export default function HomeHero({ heroPokemons, onViewChange, currentView, sele
       </div>
 
       <div className="hero-content">
-        <div className="hero-badge">🌟 {t('welcome', selectedLanguage)}</div>
+        <div className="hero-badge">
+          {user?.username 
+            ? t('welcomeTrainer', selectedLanguage, { trainer: user.username }) 
+            : t('welcome', selectedLanguage) 
+          }
+        </div>
         <h1 className="hero-title">
           <span className="hero-title-poke">Poké</span>
           <span className="hero-title-world">World</span>

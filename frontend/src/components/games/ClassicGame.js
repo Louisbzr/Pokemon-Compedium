@@ -1,12 +1,8 @@
-// src/components/games/ClassicGame.jsx
 import { useState, useRef, useEffect } from 'react';
 import { getPokemonName } from '../../utils/pokemonUtils';
 import { getTypeName, getTypeColor, getTypeIcon } from '../../utils/typeIcons';
 import { t } from '../../i18n/translations';
 import '../../styles/games/ClassicGame.css';
-
-
-// --- LOGIQUE DE COMPARAISON ---
 
 function compareTypes(guessTypes, targetTypes) {
   const g = guessTypes.map(getTypeName);
@@ -21,7 +17,6 @@ function compareGeneration(guessGen, targetGen) {
   if (!guessGen || !targetGen) return { result: 'wrong', hint: '?' }
   if (guessGen === targetGen) return { result: 'correct', hint: null }
 
-  // ← Conversion chiffres romains
   const ROMAN = { i:1, ii:2, iii:3, iv:4, v:5, vi:6, vii:7, viii:8, ix:9 }
   const toNum = g => {
     const key = g?.replace('generation-', '').toLowerCase()
@@ -60,8 +55,6 @@ function computeComparison(guess, target) {
   };
 }
 
-// --- SOUS-COMPOSANTS ---
-
 function TypeBadge({ type }) {
   const name = getTypeName(type);
   const icon = getTypeIcon(name);
@@ -70,18 +63,17 @@ function TypeBadge({ type }) {
     <span
       className="classic-type-badge"
       style={{ backgroundColor: color }}
-      title={name}          // ← tooltip au hover
+      title={name}  
     >
       {icon
         ? <img src={icon} alt={name} className="classic-type-icon" />
-        : <span>{name}</span>   // fallback si pas d'icône
+        : <span>{name}</span> 
       }
     </span>
   );
 }
 
 function Cell({ result, hint, children }) {
-  // result peut être un objet {result, hint} ou une string directe
   const state = typeof result === 'object' ? result?.result : result
   return (
     <div className={`classic-cell classic-cell--${state ?? 'unknown'}`}>
@@ -93,7 +85,6 @@ function Cell({ result, hint, children }) {
 
 
 function GuessRow({ guess, comparison, language }) {
-  // ← ICI, une seule fois, en haut de la fonction
   const evolutionLabels = { 0: '🥚', 1: 'I', 2: 'II', 3: 'III' }
 
   const genNumber = guess.generation?.replace('generation-', '').toUpperCase() || '?'
@@ -143,7 +134,6 @@ function GuessRow({ guess, comparison, language }) {
   )
 }
 
-// Ajoute ce composant avant ClassicGame :
 function HintPanel({ guessCount, targetPokemon, language, getPokemonName }) {
   const hints = [];
   const THRESHOLDS = [3, 6, 9, 12, 15, 18];
@@ -239,9 +229,6 @@ function HintPanel({ guessCount, targetPokemon, language, getPokemonName }) {
 }
 
 
-
-// --- COMPOSANT PRINCIPAL ---
-
 export default function ClassicGame({ allPokemons, language, getPokemonName, onWin }) {
   const [targetPokemon, setTargetPokemon] = useState(() => {
     return allPokemons[Math.floor(Math.random() * allPokemons.length)];
@@ -253,11 +240,9 @@ export default function ClassicGame({ allPokemons, language, getPokemonName, onW
   const [gameState, setGameState] = useState('playing');
   const inputRef = useRef(null);
 
-  // Noms déjà devinés (pour les exclure des suggestions)
   const guessedIds = guesses.map(g => g.id);
   
 
-  // Autocomplete
   useEffect(() => {
     const query = inputValue.trim().toLowerCase();
     if (!query) { setSuggestions([]); return; }
@@ -293,7 +278,6 @@ export default function ClassicGame({ allPokemons, language, getPokemonName, onW
     setInputValue('');
     setSuggestions([]);
 
-    // Victoire si tous les champs sont corrects
     const isWon = Object.values(comparison).every(v => {
       if (typeof v === 'string') return v === 'correct';
       return v.result === 'correct';
