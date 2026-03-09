@@ -9,8 +9,8 @@ const authMiddleware = require('./middleware/authMiddleware');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const host = '0.0.0.0';  // ✅ Railway obligatoire
 
-// --- CORS dynamique et stable ---
 const allowedOrigins = (process.env.FRONT_ORIGINS || 
   'http://localhost:3000').split(',');
 
@@ -20,18 +20,28 @@ app.use(cors({
     if (allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
       return callback(null, true);
     }
-    console.error(`CORS blocked: ${origin}`);  // Log utile
+    console.error(`CORS blocked: ${origin}`);  
     return callback(new Error(`CORS error: origin ${origin} not allowed`), false);
   },
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization'],  // ✅ Headers CORS
+  credentials: true,
+  optionsSuccessStatus: 204  // ✅ Fix Railway preflight
 }));
 
-app.use(express.json());
+app.use(express.json());  // ✅ Avant toutes les routes
 
-// --- Routes publiques ---
-app.get('/ping', (req, res) => res.json({ status: 'ok', port: PORT, origins: allowedOrigins }));
+// ✅ Healthcheck / ping (Railway obligatoire)
+app.get('/ping', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    port: PORT, 
+    timestamp: new Date().toISOString(),
+    origins: allowedOrigins 
+  });
+});
 
+// Routes Pokémon publiques
 app.get('/liste', async (req, res) => {
   try {
     const liste = await pokemonService.getPokemonList();
@@ -65,19 +75,19 @@ app.get('/pokemon/:name', async (req, res) => {
   }
 });
 
-// --- Routes auth publiques ---
+// Routes auth PUBLIQUES (AVANT authMiddleware)
 app.use('/auth', authRoutes);
 
-// --- Middleware auth pour toutes les routes suivantes ---
+// ✅ authMiddleware UNIQUEMENT APRÈS routes publiques
 app.use(authMiddleware);
 
-// Exemple route protégée
+// Route protégée exemple
 app.get('/private-data', (req, res) => {
   res.json({ secret: '💎 Données sensibles' });
 });
 
-// --- Lancement serveur ---
-app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
+// ✅ Railway listen OBLIGATOIRE
+app.listen(PORT, host, () => {
+  console.log(`🚀 Serveur sur http://${host}:${PORT}`);
   console.log('Allowed Origins:', allowedOrigins);
 });
