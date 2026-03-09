@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const host = '::'; 
 
-app.options('*', cors());
+app.options('/*', cors());
 
 const allowedOrigins = (process.env.FRONT_ORIGINS || 
   'http://localhost:3000').split(',');
