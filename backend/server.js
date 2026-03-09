@@ -9,7 +9,7 @@ const authMiddleware = require('./middleware/authMiddleware');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const host = '0.0.0.0'; 
+const host = '::'; 
 
 const allowedOrigins = (process.env.FRONT_ORIGINS || 
   'http://localhost:3000').split(',');
@@ -31,14 +31,7 @@ app.use(cors({
 
 app.use(express.json());  
 
-app.get('/ping', (req, res) => {
-  res.json({ 
-    status: 'ok', 
-    port: PORT, 
-    timestamp: new Date().toISOString(),
-    origins: allowedOrigins 
-  });
-});
+app.get('/ping', (req, res) => res.status(200).send('OK'));
 
 app.get('/liste', async (req, res) => {
   try {
