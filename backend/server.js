@@ -1,49 +1,58 @@
-require('dotenv').config();  
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const pokemonService = require('./services/pokemonService');
-const authRoutes = require('./routes/auth');  
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigins = [
+  'http://localhost:3000',              
+  'https://pokemon-compedium.vercel.app' 
+];
+
 app.use(cors({
-  origin: [
-    'https://pokemon-compedium.vercel.app',
-    'http://localhost:3000' 
-  ],
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      const msg = `CORS error: origin ${origin} not allowed`;
+      console.error(msg);
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   credentials: true
 }));
 
-app.use(express.json()); 
+app.use(express.json());
 
-app.use('/auth', authRoutes); 
+app.use('/auth', authRoutes);
 
 app.get('/liste', async (req, res) => {
   try {
     const liste = await pokemonService.getPokemonList();
     res.json(liste);
   } catch (error) {
-    res.status(500).json({ error: 'Erreur' });
+    console.error('💥 /liste ERROR:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
-app.get('/pokemon', async function (req, res) {
+app.get('/pokemon', async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 1025;
+    const limit = parseInt(req.query.limit) || 50;
     const offset = parseInt(req.query.offset) || 0;
-
     const pokemonWithDetails = await pokemonService.getRangeOfPokemon(limit, offset);
-
     res.json(pokemonWithDetails);
   } catch (error) {
-    console.error('💥 Backend ERROR:', error.message);
+    console.error('💥 /pokemon ERROR:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
-app.get('/pokemon/:name', async function (req, res) {
+app.get('/pokemon/:name', async (req, res) => {
   try {
     const pokemonName = req.params.name;
     const pokemon = await pokemonService.getOnePokemon(pokemonName);
@@ -59,4 +68,5 @@ app.get('/pokemon/:name', async function (req, res) {
 
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
+  console.log('Allowed Origins:', allowedOrigins);
 });
