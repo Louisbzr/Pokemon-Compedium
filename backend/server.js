@@ -77,10 +77,6 @@ app.get('/private-data', (req, res) => {
   res.json({ secret: '💎 Données sensibles' });
 });
 
-app.get('*', (req, res) => {
-  res.status(404).json({ error: 'Route non trouvée' });
-});
-
 app.listen(PORT, host, () => {
   console.log(`🚀 Serveur sur http://${host}:${PORT}`);
   console.log('✅ Allowed Origins:', allowedOrigins.join(', '));
