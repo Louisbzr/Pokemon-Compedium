@@ -11,32 +11,35 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const host = '::'; 
 
+// ✅ CORS origins flexibles (dev + prod)
 const allowedOrigins = (process.env.FRONT_ORIGINS || 
-  'http://localhost:3000').split(',');
+  'http://localhost:3000,http://localhost:3001').split(',');
+
+console.log('🚀 Allowed Origins:', allowedOrigins);
 
 app.use(cors({
-  origin: function(origin, callback) {
-    console.log('CORS origin:', origin);  // Debug logs
-    if (!origin) {
-      return callback(null, true);
+  origin: (origin, callback) => {
+    // Debug logs
+    console.log('CORS origin:', origin);
+    
+    // Autorise localhost dev + domaines prod + pas d'origin
+    if (!origin || allowedOrigins.includes(origin)) {
+      console.log('✅ CORS OK:', origin || 'no-origin');
+      callback(null, true);
+    } else {
+      console.log('❌ CORS BLOCK:', origin);
+      callback(new Error('CORS blocked'));
     }
-    // Match tous Vercel + localhost
-    if (origin.includes('vercel.app') || origin.includes('localhost')) {
-      console.log('✅ CORS OK:', origin);
-      return callback(null, true);
-    }
-    console.log('❌ CORS BLOCK:', origin);
-    return callback(new Error('CORS blocked'));
   },
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization'],
-  credentials: true
+  credentials: true,
+  optionsSuccessStatus: 200  // IE11 support
 }));
 
 app.use(express.json());  
 
 app.get('/ping', (req, res) => res.status(200).send('OK'));
 
+// Routes Pokémon
 app.get('/liste', async (req, res) => {
   try {
     const liste = await pokemonService.getPokemonList();
@@ -70,14 +73,21 @@ app.get('/pokemon/:name', async (req, res) => {
   }
 });
 
+// Routes Auth
 app.use('/auth', authRoutes);
 
+// Routes protégées
 app.use(authMiddleware);
 app.get('/private-data', (req, res) => {
   res.json({ secret: '💎 Données sensibles' });
 });
 
+// 404
+app.use('*', (req, res) => {
+  res.status(404).json({ error: 'Route non trouvée' });
+});
+
 app.listen(PORT, host, () => {
   console.log(`🚀 Serveur sur http://${host}:${PORT}`);
-  console.log('Allowed Origins:', allowedOrigins);
+  console.log('✅ Allowed Origins:', allowedOrigins.join(', '));
 });
