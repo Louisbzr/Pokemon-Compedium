@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getStatValue } from '../utils/pokemonUtils';
 
-const API_BASE = import.meta.env.VITE_API_URL || 
-  (import.meta.env.DEV ? 'http://localhost:5000' : 'https://pokemon-compedium.onrender.com');
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const GENERATIONS = {
   1: { start: 1, end: 151 },

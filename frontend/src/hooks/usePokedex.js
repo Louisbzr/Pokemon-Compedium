@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { API_BASE } from '../utils/config'; 
 
 const GENERATIONS = {
   1: { start: 1, end: 151 },
@@ -40,7 +41,7 @@ export function usePokedex() {
         let allPokemons = []
         for (let i = 0; i < count; i += batchSize) {
           const currentBatchSize = Math.min(batchSize, count - i)
-          const response = await fetch(`http://localhost:5000/pokemon?limit=${currentBatchSize}&offset=${offset + i}`)
+          const response = await fetch(`${API_BASE}/pokemon?limit=${currentBatchSize}&offset=${offset + i}`)
           const data = await response.json()
           const withTotal = data.map(p => ({ ...p, totalStats: p.stats.reduce((s, st) => s + st.base_stat, 0) }))
           allPokemons = [...allPokemons, ...withTotal]
@@ -48,7 +49,7 @@ export function usePokedex() {
         }
         setPokemons(allPokemons)
       } else {
-        const response = await fetch(`http://localhost:5000/pokemon?limit=${count}&offset=${offset}`)
+        const response = await fetch(`${API_BASE}/pokemon?limit=${count}&offset=${offset}`)
         const data = await response.json()
         setPokemons(data.map(p => ({ ...p, totalStats: p.stats.reduce((s, st) => s + st.base_stat, 0) })))
       }
