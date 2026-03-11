@@ -16,8 +16,8 @@
 ## Local Setup
 ```bash
 # Clone
-git clone https://github.com/ha-sombre/pokeworld.git
-cd pokeworld
+git clone [https://github.com/Louisbzr/Pokemon-Compedium.git]
+cd Pokemon-Compedium
 
 # Backend
 cd backend
@@ -34,12 +34,12 @@ npm start  # http://localhost:3000
 
 ## Production
 - Frontend: https://pokeworld.vercel.app
-- Backend: https://pokeworld-backend.railway.app
+- Backend: https://pokeworld-backend.render.app
 - DB: Supabase
 
 ## Deploy
 ```bash
-# Backend Railway: DATABASE_URL env var
+# Backend Render: DATABASE_URL env var
 # Frontend Vercel: REACT_APP_API_URL env var
 ```
 
