@@ -54,7 +54,7 @@ export default function HomeHero({ heroPokemons, onViewChange, currentView, sele
         </div>
         <h1 className="hero-title">
           <span className="hero-title-poke">Poké</span>
-          <span className="hero-title-world">World</span>
+          <span className="hero-title-world">Morpho</span>
         </h1>
         <p className="hero-subtitle">{t('subtitle', selectedLanguage)}</p>
         <div className="hero-actions">

@@ -55,7 +55,7 @@ export default function HomeIntro({ onDone }) {
           <>
             <div className="intro-logo">
               <span className="logo-poke">Poké</span>
-              <span className="logo-world">World</span>
+              <span className="logo-world">Morpho</span>
             </div>
             <div className="intro-press-start">▶ APPUYEZ POUR COMMENCER</div>
             <div className="intro-version">Version 1.0</div>

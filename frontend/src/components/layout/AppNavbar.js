@@ -35,7 +35,7 @@ export default function AppNavbar({
       <div className="poke-navbar-inner">
         <button className="poke-logo" onClick={() => handleViewChange('home')}>
           <span className="logo-poke">Poké</span>
-          <span className="logo-world">World</span>
+          <span className="logo-world">Morpho</span>
         </button>
 
         <button
