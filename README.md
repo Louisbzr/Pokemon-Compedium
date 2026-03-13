@@ -1,5 +1,5 @@
 
-# PokeWorld 🐾
+# PokeMorpho 
 
 ## Fullstack Pokémon App
 - **Frontend** : React 18 + PokeAPI + i18n (9 langues)
@@ -16,8 +16,8 @@
 ## Local Setup
 ```bash
 # Clone
-git clone https://github.com/ha-sombre/pokeworld.git
-cd pokeworld
+git clone https://github.com/Louisbzr/pokemorpho.git
+cd pokemorpho
 
 # Backend
 cd backend
@@ -33,8 +33,8 @@ npm start  # http://localhost:3000
 ```
 
 ## Production
-- Frontend: https://pokeworld.vercel.app
-- Backend: https://pokeworld-backend.railway.app
+- Frontend: https://pokemorpho.vercel.app
+- Backend: https://pokemorpho-backend.railway.app
 - DB: Supabase
 
 ## Deploy
@@ -43,4 +43,4 @@ npm start  # http://localhost:3000
 # Frontend Vercel: REACT_APP_API_URL env var
 ```
 
-**Live Demo** : [pokeworld.vercel.app](https://pokeworld.vercel.app)
+**Live Demo** : [pokemorpho.vercel.app](https://pokemorpho.vercel.app)
