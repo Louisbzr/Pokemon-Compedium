@@ -77,7 +77,7 @@ export default function HomePage({
       />
       <footer className="homepage-footer">
         <div className="footer-pokeball" />
-        <p>PokéWorld — Fan-made, non officiel. Pokémon © Nintendo / Game Freak.</p>
+        <p>PokéMorpho — Fan-made, non officiel. Pokémon © Nintendo / Game Freak.</p>
       </footer>
     </div>
   );

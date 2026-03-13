@@ -111,9 +111,9 @@ router.post('/forgot-password', async (req, res) => {
     const resetUrl = `http://localhost:3000/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`;
 
     await transporter.sendMail({
-      from: `"PokéWorld" <${process.env.EMAIL_USER}>`,
+      from: `"PokéMorpho" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Réinitialise ton mot de passe PokéWorld',
+      subject: 'Réinitialise ton mot de passe PokéMorpho',
       html: `<h2>Réinitialisation</h2><a href="${resetUrl}">Clique ici</a>`
     });
 
