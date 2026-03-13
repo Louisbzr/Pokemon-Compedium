@@ -39,7 +39,7 @@ npm start  # http://localhost:3000
 
 ## Deploy
 ```bash
-# Backend Railway: DATABASE_URL env var
+# Backend Render: DATABASE_URL env var
 # Frontend Vercel: REACT_APP_API_URL env var
 ```
 
